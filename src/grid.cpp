@@ -4,6 +4,8 @@
 #include <grid.h>
 #include <misc.h>
 #include <my_exceptions.h>
+#include <const.h>
+#include <interpolate.h>
 
 using namespace std;
 
@@ -42,57 +44,60 @@ void GridClass::initialize(string filename)
     is >> x1 >> nlayer; // don't need first number
     cout << "# of layers: " << nlayer << endl;
 
+    pair<double, double> rv_one; // radius/velocity of one layer
+
     for (int i = 0; i < nlayer; i++)
     {
         getline(infile, oneline);
         istringstream is(oneline);
         is >> x1 >> x2 >> x3 >> x4 >> x5;
-        rad.push_back(x1);
-        vel.push_back(x5/cm2km);
+        rv_one.first = x1;
+        rv_one.second = x5/cm2km;
+        rad_vel.push_back(rv_one);
     }
 
     infile.close();
 
     // layers are reversed in the layer file, so reverse them back
-    reverse(rad.begin(), rad.end());
-    reverse(vel.begin(), vel.end());
+    reverse(rad_vel.begin(), rad_vel.end());
+}
 
-    // calculate Lorentz factor beta (= v/c) for each layer
-    for (vector<double>::iterator it = vel.begin(); it != vel.end(); it++)
+double GridClass::rad(int layer) const
+{
+    return rad_vel.at(layer).first;
+}
+
+double GridClass::vel(int layer) const
+{
+    return rad_vel.at(layer).second;
+}
+
+double GridClass::vel(double rad) const
+{
+    return interpolate(rad_vel, rad);
+}
+
+double GridClass::beta(int layer) const
+{
+    return rad_vel.at(layer).second / cm2km / c_light;
+}
+
+double GridClass::dbeta_dr(int layer) const
+{
+    if (layer == 0)
     {
-        beta.push_back(*it / c_light);
+        // forward derivative at the back
+        return (beta(layer+1) - beta(layer)) / (rad_vel.at(layer+1).first - rad_vel.at(layer).first);
     }
-
-    dbeta_dr.resize(beta.size());
-    for (int i = 0; i < beta.size(); i++)
+    else if (layer == rad_vel.size()-1)
     {
-        if (i == 0)
-        {
-            dbeta_dr.at(i) = (beta.at(i+1) - beta.at(i)) / (rad.at(i+1) - rad.at(i));
-        }
-        else if (i == beta.size()-1)
-        {
-            dbeta_dr.at(i) = (beta.at(i) - beta.at(i-1)) / (rad.at(i) - rad.at(i-1));
-        }
-        else
-        {
-            dbeta_dr.at(i) = (beta.at(i+1) - beta.at(i-1)) / (rad.at(i+1) - rad.at(i-1));
-        }
+        // backward derivative at the front
+        return (beta(layer) - beta(layer-1)) / (rad_vel.at(layer).first - rad_vel.at(layer-1).first);
     }
-
+    else
+    {
+        // centered derivative anywhere in between
+        return (beta(layer+1) - beta(layer-1)) / (rad_vel.at(layer+1).first - rad_vel.at(layer-1).first);
+    }
 }
 
-double GridClass::get_rad(int layer) const
-{
-    return rad.at(layer);
-}
-
-double GridClass::get_vel(int layer) const
-{
-    return vel.at(layer);
-}
-
-double GridClass::get_beta(int layer) const
-{
-    return beta.at(layer);
-}

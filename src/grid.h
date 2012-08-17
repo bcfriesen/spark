@@ -12,14 +12,17 @@ class GridClass
         GridClass();
         ~GridClass();
         void initialize(string filename);
-        double get_rad(int layer) const;
-        double get_vel(int layer) const;
-        double get_beta(int layer) const;
+        double rad(int layer) const; // read from tabulated data in layer file
+        double vel(int layer) const; // read from tabulated data in layer file
+        double vel(double rad) const; // interpolate
+        double beta(int layer) const; // read from tabulated data in layer file
+        double beta(double rad) const; // interpolate
+        double dbeta_dr(int layer) const; // read from tabulated data in layer file
+        double dbeta_dr(double rad) const; // interpolate
+        friend double interpolate(vector< pair<double, double> > table, double x);
+        friend double gamma_ltz(double beta);
     private:
-        vector<double> rad;
-        vector<double> vel;
-        vector<double> beta;
-        vector<double> dbeta_dr;
+        vector< pair<double, double> > rad_vel; // radius and velocity of each layer
 };
 
 #endif
