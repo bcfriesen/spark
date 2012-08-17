@@ -3,19 +3,23 @@
 
 #include <iostream>
 #include <vector>
-#include <griddata.h>
 
 using namespace std;
 
 class GridClass
 {
     public:
-        GridClass(string filename);
+        GridClass();
         ~GridClass();
-        double get_rad(int layer);
-        double get_vel(int layer);
+        void initialize(string filename);
+        double get_rad(int layer) const;
+        double get_vel(int layer) const;
+        double get_beta(int layer) const;
     private:
-        vector<GridDataClass> griddata;
+        vector<double> rad;
+        vector<double> vel;
+        vector<double> beta;
+        vector<double> dbeta_dr;
 };
 
 #endif

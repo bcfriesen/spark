@@ -8,7 +8,7 @@ ENABLE_LANGUAGE (CXX)
 # (e.g. MacroOutOfSourceBuild.cmake):
 SET (CMAKE_MODULE_PATH "${${PROJECT_NAME}_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
 
-# The macro below forces the build directory to be different from source 
+# The macro below forces the build directory to be different from source
 # directory
 INCLUDE (MacroOutOfSourceBuild)
 macro_ensure_out_of_source_build("${PROJECT_NAME} requires an out of source build.")
@@ -16,6 +16,5 @@ macro_ensure_out_of_source_build("${PROJECT_NAME} requires an out of source buil
 
 SET (CMAKE_VERBOSE_MAKEFILE "True")
 SET (CMAKE_BUILD_TYPE "Debug")
-SET (CMAKE_CXX_COMPILER "/usr/local/macports/bin/clang++")
 
 ADD_SUBDIRECTORY (src)
