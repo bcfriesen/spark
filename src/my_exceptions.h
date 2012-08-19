@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//! Exception for missing files.
 class FileNotFoundException: public exception
 {
     public:
@@ -11,9 +12,10 @@ class FileNotFoundException: public exception
         ~FileNotFoundException() throw();
         virtual const char* what() const throw();
     private:
-        string errmsg;
+        string errmsg; //!< Error message.
 };
 
+//! Exception for out-of-bounds interpolation.
 class InterpOutOfRangeException: public exception
 {
     public:
@@ -21,5 +23,5 @@ class InterpOutOfRangeException: public exception
         ~InterpOutOfRangeException() throw();
         virtual const char* what() const throw();
     private:
-        string errmsg;
+        string errmsg; //!< Error message.
 };

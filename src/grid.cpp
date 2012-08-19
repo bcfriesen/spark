@@ -15,8 +15,6 @@ GridClass::~GridClass() { }
 
 void GridClass::initialize(string filename)
 {
-    const double c_light = 2.99792458e10;
-    const double cm2km = 1.0e-5;
     ifstream infile;
 
     // make sure file exists
