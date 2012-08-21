@@ -17,7 +17,7 @@ double interpolate(vector<pair <double, double> > table, double x)
     try
     {
         double check = x - table.back().first;
-        if (check > 0) throw InterpOutOfRangeException(table, x);
+        if (check > 0) throw InterpOutOfRangeException();
     }
     catch (InterpOutOfRangeException& ior)
     {
@@ -28,7 +28,7 @@ double interpolate(vector<pair <double, double> > table, double x)
     try
     {
         double check = x - table.at(0).first;
-        if (check < 0) throw InterpOutOfRangeException(table, x);
+        if (check < 0) throw InterpOutOfRangeException();
     }
     catch (InterpOutOfRangeException& ior)
     {

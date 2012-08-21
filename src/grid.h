@@ -13,16 +13,13 @@ using namespace std;
 class GridClass
 {
     public:
-        GridClass();
-        ~GridClass();
         //! Does most initialization.
         /**
-         * This is all essential for the code to run
-         * but I don't want to put it in the constructor.
          * Reads the radius/velocity grid data from the layer file and stores it
          * in member variables.
          */
-        void initialize(string filename);
+        GridClass(char* layer_file);
+        ~GridClass();
         double rad(int layer) const; //!< Get radius from tabulated data in layer file.
         double vel(int layer) const; //!< Get velocity from tabulated data in layer file.
         double vel(double rad) const; //!< Interpolate velocity between tabulated data points.
