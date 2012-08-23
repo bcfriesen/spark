@@ -1,0 +1,5 @@
+Welcome to RTCPP, a stupid 1-D ALI code for doing radiative transfer.
+
+Dependencies:
+    - yaml-cpp
+    - odeint (currently part of the Boost sandbox)

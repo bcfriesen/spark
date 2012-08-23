@@ -1,2 +1,2 @@
 # sample YAML file
-layer_file: "layer.pah_std_d3.3.dat"
+layer_file: "../example/layer.pah_std_d3.3.dat"

@@ -1,7 +1,11 @@
+#ifndef MY_EXCEPTIONS_H
+#define MY_EXCEPTIONS_H
+
 #include <string>
 #include <vector>
 #include <stdexcept>
 #include <sstream>
+#include <boost/lexical_cast.hpp>
 
 using namespace std;
 
@@ -12,7 +16,7 @@ using namespace std;
 namespace ErrorMsg
 {
     const string const FILE_NOT_FOUND = "File not found: ";
-    const string const INTERP_OUT_OF_RANGE = "Interpolation out of range";
+    const string const INTERP_OUT_OF_RANGE = "Interpolation out of range for value: ";
     const string const WRONG_CLI_USAGE = "Usage: <RTCPP_binary> <yaml_file>";
 }
 
@@ -57,8 +61,8 @@ class FileNotFoundException: public Exception
 class InterpOutOfRangeException: public Exception
 {
     public:
-        InterpOutOfRangeException()
-            : Exception(ErrorMsg::INTERP_OUT_OF_RANGE)
+        InterpOutOfRangeException(double x)
+            : Exception(ErrorMsg::INTERP_OUT_OF_RANGE + boost::lexical_cast<string>(x))
         {}
 };
 
@@ -70,3 +74,5 @@ class WrongCLIUsageException: public Exception
             : Exception(ErrorMsg::WRONG_CLI_USAGE)
         {}
 };
+
+#endif

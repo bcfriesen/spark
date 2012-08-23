@@ -1,13 +1,10 @@
 SET (RTCPP_SOURCES
     main.cpp
-    characteristic.cpp
-    grid.cpp
-    misc.cpp
-    interpolate.cpp
     )
 
 INCLUDE_DIRECTORIES (${PROJECT_SOURCE_DIR}/src
-                     $ENV{HOME}/yaml-cpp/include)
+                     $ENV{HOME}/yaml-cpp/include
+                     $ENV{HOME}/odeint-v2)
 
 LINK_DIRECTORIES ($ENV{HOME}/yaml-cpp/build)
 
