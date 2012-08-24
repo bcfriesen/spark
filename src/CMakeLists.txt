@@ -1,5 +1,9 @@
 SET (RTCPP_SOURCES
+    characteristic.cpp
+    grid.cpp
     main.cpp
+    misc.cpp
+    my_exceptions.cpp
     )
 
 INCLUDE_DIRECTORIES (${PROJECT_SOURCE_DIR}/src

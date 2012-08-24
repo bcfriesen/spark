@@ -38,12 +38,13 @@ int main(int argc, char* argv[])
     ofstream myfile;
     myfile.open("derp.out");
 
+    vector<double> spts(64);
+
     for (vector<CharacteristicODEClass>::iterator it_r = charODE.begin(); it_r != charODE.end(); it_r++)
     {
         cout << "working on p = " << it_r->get_p() << endl;
         // set up s > 0 grid
         // TODO: figure out a better way to distribute s points
-        vector<double> spts(64);
         for (int i = 0; i < spts.size(); i++)
         {
             spts.at(i) = double(i) * (1.0e15 / double(spts.size()));

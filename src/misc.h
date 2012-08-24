@@ -1,10 +1,14 @@
 #ifndef MISC_H
 #define MISC_H
 
+#include <vector>
+
 //! Calculates Lorentz factor \f$ \gamma \equiv (1 - \beta^2)^{-1/2} \f$
-double gamma_ltz(double beta)
-{
-    return 1.0 / sqrt(1.0 - pow(beta, 2));
-}
+double gamma_ltz(double beta);
+/**
+ * Linear interpolator.
+ * I stole this whole routine from Daniel Fleischman on StackOverflow.
+ */
+double interpolate(std::vector<std::pair <double, double> > table, double x);
 
 #endif

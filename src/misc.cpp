@@ -1,15 +1,15 @@
-#ifndef INTERPOLATE_H
-#define INTERPOLATE_H
-
-#include <vector>
+#include <limits>
+#include <math.h>
+#include <misc.h>
+#include <my_exceptions.h>
 
 using namespace std;
 
-//! Interpolator
-/**
- * Right now it does only linear interpolation.
- * I stole this whole routine from Daniel Fleischman on StackOverflow.
- */
+double gamma_ltz(double beta)
+{
+    return 1.0 / sqrt(1.0 - pow(beta, 2));
+}
+
 double interpolate(vector<pair <double, double> > table, double x)
 {
     const double inf = numeric_limits<double>::infinity();
@@ -26,5 +26,3 @@ double interpolate(vector<pair <double, double> > table, double x)
     --it2;
     return it2->second + (it->second - it2->second)*(x - it2->first)/(it->first - it2->first);
 }
-
-#endif

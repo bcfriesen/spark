@@ -2,12 +2,7 @@
 #define MY_EXCEPTIONS_H
 
 #include <string>
-#include <vector>
 #include <stdexcept>
-#include <sstream>
-#include <boost/lexical_cast.hpp>
-
-using namespace std;
 
 //! Error message namespace.
 /**
@@ -15,11 +10,10 @@ using namespace std;
  */
 namespace ErrorMsg
 {
-    const string const FILE_NOT_FOUND = "File not found: ";
-    const string const INTERP_OUT_OF_RANGE = "Interpolation out of range for value: ";
-    const string const WRONG_CLI_USAGE = "Usage: <RTCPP_binary> <yaml_file>";
+    const std::string const FILE_NOT_FOUND = "File not found: ";
+    const std::string const INTERP_OUT_OF_RANGE = "Interpolation out of range for value: ";
+    const std::string const WRONG_CLI_USAGE = "Usage: <RTCPP_binary> <yaml_file>";
 }
-
 
 //! Generic exception class.
 /**
@@ -31,48 +25,32 @@ namespace ErrorMsg
 class Exception: public std::runtime_error
 {
     public:
-        Exception(const string& msg_)
-            : runtime_error(build_what(msg_)),
-              msg(msg_)
-        {}
-        virtual ~Exception() throw() {}
+        Exception(const std::string& msg_);
+        virtual ~Exception() throw();
         std::string msg;
-
     private:
-        static const string build_what(const string& msg)
-        {
-            stringstream output;
-            output << "ERROR: " << msg;
-            return output.str();
-        }
+        static const std::string build_what(const std::string& msg);
 };
-
 
 //! Exception for missing files.
 class FileNotFoundException: public Exception
 {
     public:
-        FileNotFoundException(string filename)
-            : Exception(ErrorMsg::FILE_NOT_FOUND + filename)
-        {}
+        FileNotFoundException(std::string filename);
 };
 
 //! Exception for out-of-bounds interpolation.
 class InterpOutOfRangeException: public Exception
 {
     public:
-        InterpOutOfRangeException(double x)
-            : Exception(ErrorMsg::INTERP_OUT_OF_RANGE + boost::lexical_cast<string>(x))
-        {}
+        InterpOutOfRangeException(double x);
 };
 
 //! Exception for wrong # of command-line arguments.
 class WrongCLIUsageException: public Exception
 {
     public:
-        WrongCLIUsageException()
-            : Exception(ErrorMsg::WRONG_CLI_USAGE)
-        {}
+        WrongCLIUsageException();
 };
 
 #endif
