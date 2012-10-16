@@ -11,6 +11,7 @@ GridClass::GridClass(char* yaml_file)
 {
     ifstream infile;
     infile.open(yaml_file);
+    if (!infile) throw FileNotFoundException(yaml_file);
     string layer_file;
 
     try
@@ -126,4 +127,14 @@ double GridClass::dbeta_dr(double rad) const
     {
         return (beta(rad+dr) - beta(rad-dr)) / (2.0*dr);
     }
+}
+
+vector< pair<double, double> >::iterator GridClass::begin()
+{
+    return rad_vel.begin();
+}
+
+vector< pair<double, double> >::iterator GridClass::end()
+{
+    return rad_vel.end();
 }

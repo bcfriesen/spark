@@ -34,6 +34,11 @@ class GridClass
         // FIXME: this whole thing is probably completely wrong
         double dbeta_dr(double rad) const;
 
+        // sometimes it's useful to iterate over the grid variables from
+        // outside this class
+        std::vector< std::pair<double, double> >::iterator begin();
+        std::vector< std::pair<double, double> >::iterator end();
+
         friend double interpolate(std::vector< std::pair<double, double> > table, double x);
         friend double gamma_ltz(double beta);
 
