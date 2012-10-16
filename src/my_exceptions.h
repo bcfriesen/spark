@@ -10,9 +10,9 @@
  */
 namespace ErrorMsg
 {
-    const std::string const FILE_NOT_FOUND = "File not found: ";
-    const std::string const INTERP_OUT_OF_RANGE = "Interpolation out of range for value: ";
-    const std::string const WRONG_CLI_USAGE = "Usage: <RTCPP_binary> <yaml_file>";
+    const std::string FILE_NOT_FOUND = "File not found: ";
+    const std::string INTERP_OUT_OF_RANGE = "Interpolation out of range for value: ";
+    const std::string WRONG_CLI_USAGE = "Usage: <RTCPP_binary> <yaml_file>";
 }
 
 //! Generic exception class.
