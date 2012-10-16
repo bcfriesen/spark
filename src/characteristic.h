@@ -1,22 +1,23 @@
 #ifndef CHARACTERISTIC_H
 #define CHARACTERISTIC_H
 
+#include <vector>
 #include <grid.h>
 
-class CharacteristicODEClass
+class Characteristic
 {
     public:
-        CharacteristicODEClass(GridClass &grid, int i);
-        void operator() (const std::vector<double> &x,
-                         std::vector<double>       &dxds,
-                         const double         s);
-        //! get impact parameter for this ray
+        Characteristic(GridClass& grid, int i);
+        //! Return the impact parameter for this characteristic ray.
         double get_p();
-
+        void push_s(double s_);
+        void push_mu(double mu_);
         friend double gamma_ltz(double beta);
 
     private:
-        double m_p;/*!< impact parameter */
+        double m_p; /*!< impact parameter */
+        std::vector<double> s; /*!< length along ray (function of \f$r\f$)*/
+        std::vector<double> mu; /*!< direction-cosine along ray (function of \f$r\f$) */
         GridClass* m_grid; /*!< grid */
 };
 
