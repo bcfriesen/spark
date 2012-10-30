@@ -18,14 +18,14 @@ const string Exception::build_what(const string& msg)
     return output.str();
 }
 
-FileNotFoundException::FileNotFoundException(string filename)
+FileNotFound::FileNotFound(string filename)
     : Exception(ErrorMsg::FILE_NOT_FOUND + filename)
 {}
 
-InterpOutOfRangeException::InterpOutOfRangeException(double x)
+InterpOutOfRange::InterpOutOfRange(double x)
 : Exception(ErrorMsg::INTERP_OUT_OF_RANGE + boost::lexical_cast<string>(x))
 {}
 
-WrongCLIUsageException::WrongCLIUsageException()
+WrongCLIUsage::WrongCLIUsage()
 : Exception(ErrorMsg::WRONG_CLI_USAGE)
 {}

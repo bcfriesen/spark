@@ -16,7 +16,7 @@ double interpolate(vector<pair <double, double> > table, double x)
 
     // make sure we're interpolating within limits
     if (x - table.back().first > 0 || x - table.at(0).first < 0)
-        throw InterpOutOfRangeException(x);
+        throw InterpOutOfRange(x);
 
     vector< pair< double, double > >::iterator it, it2;
 

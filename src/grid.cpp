@@ -14,7 +14,7 @@ GridClass::GridClass(char* yaml_file)
     ifstream infile;
     infile.open(yaml_file);
 
-    if (!infile) throw FileNotFoundException(yaml_file);
+    if (!infile) throw FileNotFound(yaml_file);
 
     string layer_file;
 
@@ -36,7 +36,7 @@ GridClass::GridClass(char* yaml_file)
 
     infile.open(layer_file.c_str());
 
-    if (!infile) throw FileNotFoundException(layer_file);
+    if (!infile) throw FileNotFound(layer_file);
 
     string oneline;
     double x1, x2, x3, x4, x5;

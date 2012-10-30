@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
     cout.setf(ios::scientific);
 
     // user must supply YAML file as argument
-    if (argc != 2) throw WrongCLIUsageException();
+    if (argc != 2) throw WrongCLIUsage();
 
     GridClass grid(argv[1]); // grid constructor reads YAML file
 

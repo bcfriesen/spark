@@ -33,24 +33,24 @@ class Exception: public std::runtime_error
 };
 
 //! Exception for missing files.
-class FileNotFoundException: public Exception
+class FileNotFound: public Exception
 {
     public:
-        FileNotFoundException(std::string filename);
+        FileNotFound(std::string filename);
 };
 
 //! Exception for out-of-bounds interpolation.
-class InterpOutOfRangeException: public Exception
+class InterpOutOfRange: public Exception
 {
     public:
-        InterpOutOfRangeException(double x);
+        InterpOutOfRange(double x);
 };
 
 //! Exception for wrong # of command-line arguments.
-class WrongCLIUsageException: public Exception
+class WrongCLIUsage: public Exception
 {
     public:
-        WrongCLIUsageException();
+        WrongCLIUsage();
 };
 
 #endif
