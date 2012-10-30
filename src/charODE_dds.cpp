@@ -13,14 +13,23 @@ void charODE_dds::operator() (const vector<double>& x,
                               vector<double>&       dxds,
                               const double          s)
 {
+    const double r        = x.at(0);
+    const double mu       = x.at(1);
+    const double gamma    = gamma_ltz(m_grid->beta(r));
+    const double beta     = m_grid->beta(r);
+    const double dbeta_dr = m_grid->dbeta_dr(r);
+
+    double dr_ds;
+    double dmu_ds;
+
     // dr/ds (Eq. 3.4a of Mihalas (1980))
-    dxds.at(0) = gamma_ltz(m_grid->beta(x.at(0))) *
-        (x.at(1) + m_grid->beta(x.at(0)));
+    dr_ds = gamma * (mu + beta);
+
     // d\mu/ds (Eq. 3.4b of Mihalas (1980))
-    dxds.at(1) = gamma_ltz(m_grid->beta(x.at(0))) *
-        (1.0 - pow(x.at(1), 2)) *
-        (((1.0 + m_grid->beta(x.at(0)) * x.at(1)) / x.at(0)) -
-         pow(gamma_ltz(m_grid->beta(x.at(0))), 2) *
-         (x.at(1) + m_grid->beta(x.at(0))) *
-         m_grid->dbeta_dr(x.at(0)));
+    dmu_ds = gamma * (1.0 - pow(mu, 2)) *
+        (((1.0 + beta * mu) / r) -
+         pow(gamma, 2) * (mu + beta) * dbeta_dr);
+
+    dxds.at(0) = dr_ds;
+    dxds.at(1) = dmu_ds;
 }
