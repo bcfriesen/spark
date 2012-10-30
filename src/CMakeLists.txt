@@ -11,7 +11,9 @@ SET (RTCPP_SOURCES
 
 INCLUDE_DIRECTORIES (${PROJECT_SOURCE_DIR}/src
                      $ENV{HOME}/yaml-cpp/include
-                     $ENV{HOME}/odeint-v2)
+                     $ENV{HOME}/odeint-v2
+                     $ENV{HOME}/boost_1_51_0
+                     )
 
 LINK_DIRECTORIES ($ENV{HOME}/yaml-cpp/build)
 
