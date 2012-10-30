@@ -9,7 +9,7 @@ Characteristic::Characteristic(GridClass& grid, int i)
       m_p(grid.rad(i))
 {}
 
-//! get impact parameter for this ray
+//! get impact parameter for this ray (at v = 0)
 double Characteristic::get_p()
 {
     return m_p;
