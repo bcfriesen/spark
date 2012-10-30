@@ -12,25 +12,26 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+    cout.setf(ios::scientific);
+
+    // user must supply YAML file as argument
     if (argc != 2) throw WrongCLIUsageException();
 
-    GridClass grid(argv[1]);
-
-    vector< vector<double> > x_vec;
-    vector<double> times;
-
-    cout.setf(ios::scientific);
+    GridClass grid(argv[1]); // grid constructor reads YAML file
 
     ofstream myfile;
     myfile.open("derp.out");
 
     vector<Characteristic> char_ray;
+    /* Initialize one fewer than the number of layers because a ray tangent to
+       the outermost layer doesn't actually sample any of the atmosphere. */
     for (int i = 0; i < grid.get_num_layers()-1; i++)
     {
         Characteristic one_ray(grid, i);
         char_ray.push_back(one_ray);
     }
 
+    // integrate characteristic ODEs
     calc_rays(grid, char_ray);
 
     myfile.close();
