@@ -18,6 +18,8 @@ class GridClass
         GridClass(char* yaml_file);
         //! Get number of layers in layer file.
         int get_num_layers() const;
+        //! Get number of core-intersecting rays (this is a knob)
+        int get_num_core_intersect_rays() const;
         //! Get radius from tabulated data in layer file.
         double rad(int layer) const;
         //! Get velocity from tabulated data in layer file.
@@ -45,6 +47,7 @@ class GridClass
     private:
         //! radius and velocity of each layer
         std::vector< std::pair<double, double> > rad_vel;
+        int num_core_intersect_rays;
 };
 
 #endif

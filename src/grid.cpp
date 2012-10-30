@@ -1,4 +1,5 @@
 #include <fstream>
+#include <algorithm>
 #include <yaml-cpp/yaml.h>
 #include <grid.h>
 #include <my_exceptions.h>
@@ -9,9 +10,12 @@ using namespace std;
 
 GridClass::GridClass(char* yaml_file)
 {
+    // YAML file has all the file locations, parameters, etc.
     ifstream infile;
     infile.open(yaml_file);
+
     if (!infile) throw FileNotFoundException(yaml_file);
+
     string layer_file;
 
     try
@@ -19,7 +23,9 @@ GridClass::GridClass(char* yaml_file)
         YAML::Parser parser(infile);
         YAML::Node doc;
         parser.GetNextDocument(doc);
+        // we read PHOENIX-style layer files
         doc["layer_file"] >> layer_file;
+        doc["num_core_intersect_rays"] >> num_core_intersect_rays;
     }
     catch(YAML::ParserException& e)
     {
@@ -29,6 +35,7 @@ GridClass::GridClass(char* yaml_file)
     infile.close();
 
     infile.open(layer_file.c_str());
+
     if (!infile) throw FileNotFoundException(layer_file);
 
     string oneline;
@@ -59,6 +66,11 @@ GridClass::GridClass(char* yaml_file)
 int GridClass::get_num_layers() const
 {
     return rad_vel.size();
+}
+
+int GridClass::get_num_core_intersect_rays() const
+{
+    return num_core_intersect_rays;
 }
 
 double GridClass::rad(int layer) const
