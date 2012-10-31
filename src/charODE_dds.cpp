@@ -1,5 +1,5 @@
 #include <vector>
-#include <math.h>
+#include <cmath>
 #include <charODE_dds.h>
 #include <grid.h>
 
@@ -19,14 +19,11 @@ void charODE_dds::operator() (const vector<double>& x,
     const double beta     = m_grid->beta(r);
     const double dbeta_dr = m_grid->dbeta_dr(r);
 
-    double dr_ds;
-    double dmu_ds;
-
     // dr/ds (Eq. 3.4a of Mihalas (1980))
-    dr_ds = gamma * (mu + beta);
+    const double dr_ds = gamma * (mu + beta);
 
     // d\mu/ds (Eq. 3.4b of Mihalas (1980))
-    dmu_ds = gamma * (1.0 - pow(mu, 2)) *
+    const double dmu_ds = gamma * (1.0 - pow(mu, 2)) *
         (((1.0 + beta * mu) / r) -
          pow(gamma, 2) * (mu + beta) * dbeta_dr);
 

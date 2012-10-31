@@ -1,6 +1,7 @@
 SET (RTCPP_SOURCES
     calc_rays.cpp
     charODE_dds.cpp
+    charODE_dds_new.cpp
     charODE_ddr.cpp
     characteristic.cpp
     grid.cpp

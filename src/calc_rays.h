@@ -4,6 +4,6 @@
 #include <grid.h>
 #include <characteristic.h>
 
-void calc_rays(GridClass &grid, std::vector<Characteristic> &char_ray);
+void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char);
 
 #endif

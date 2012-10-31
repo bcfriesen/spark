@@ -1,8 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <math.h>
-#include <misc.h>
+#include <cmath>
 #include <grid.h>
 #include <my_exceptions.h>
 #include <characteristic.h>
@@ -21,6 +20,7 @@ int main(int argc, char* argv[])
 
     ofstream myfile;
     myfile.open("derp.out");
+    myfile.setf(ios::scientific);
 
     vector<Characteristic> char_ray;
     /* Initialize one fewer than the number of layers because a ray tangent to
@@ -32,7 +32,35 @@ int main(int argc, char* argv[])
     }
 
     // integrate characteristic ODEs
-    calc_rays(grid, char_ray);
+    for (vector<Characteristic>::iterator it_char = char_ray.begin();
+            it_char != char_ray.end();
+            it_char++)
+    {
+        calc_rays(grid, it_char);
+    }
+
+    // write out results
+    myfile << "#mu" << "  " << "s" << "  " << "rad" << endl;
+    for (vector<Characteristic>::iterator it_char = char_ray.begin();
+            it_char != char_ray.end();
+            it_char++)
+    {
+        for (int i = 0; i < 128; i++)
+        {
+            myfile << acos(it_char->get_mu(i)) << " "
+                << it_char->get_s(i) << " "
+                << grid.rad(i)
+                << endl;
+        }
+        for (int i = 128; i < 256; i++)
+        {
+            myfile << acos(it_char->get_mu(i)) << " "
+                << it_char->get_s(i) << " "
+                << grid.rad(i-128)
+                << endl;
+        }
+        myfile << endl;
+    }
 
     myfile.close();
 

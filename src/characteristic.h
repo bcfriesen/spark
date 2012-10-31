@@ -13,6 +13,8 @@ class Characteristic
         void push_s(double s_);
         void push_mu(double mu_);
         friend double gamma_ltz(double beta);
+        double get_s(int i);
+        double get_mu(int i);
 
     private:
         double m_p; /*!< impact parameter */
