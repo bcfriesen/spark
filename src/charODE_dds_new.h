@@ -7,10 +7,10 @@
 class charODE_dds_new
 {
     public:
-        charODE_dds_new(GridClass& grid, double mu);
-        void operator() (const double& r,
-                         double&       dr_ds,
-                         const double  s);
+        charODE_dds_new(GridClass& grid, const double mu);
+        void operator() (const std::vector<double>& r,
+                         std::vector<double>&       dr_ds,
+                         const double          s);
 
         friend double gamma_ltz(double beta);
 

@@ -27,27 +27,40 @@ void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char)
      * roundoff errors, and 2.) it will still be cheap to integrate because it's
      * not far from the initial conditions. */
     const double s_stop = 1.0e-3 * grid.rad(0);
+    double s_inc = 1.0e-3 * grid.rad(0);
 
-    for (int i = 0; i < grid.get_num_layers(); i++)
+    const double p = it_char->get_p();
+
+    for (int i = 0; i < grid.get_num_layers()-1; i++)
     {
+        vector<double> r_of_s(1, p);
         const double r = grid.rad(i);
-        const double p = it_char->get_p();
-        const double beta = grid.beta(i);
-        // direction cosines in Eulerian frame, toward the observer (m) and away
-        // from the observer (p)
-        const double mu_E_p = sqrt(1.0 - pow(p / r, 2)) / r;
-        const double mu_E_m = -mu_E_p;
-        // direction cosines in Lagrangian frame
-        const double mu_L_p = (mu_E_p - beta) / (1.0 - beta * mu_E_p);
-        const double mu_L_m = (mu_E_m - beta) / (1.0 - beta * mu_E_m);
-        // set up d/ds ODEs
-        charODE_dds_new ode_dds_new(grid, mu_L_p);
-        double r_of_s = p;
+        const double r_next = grid.rad(i+1);
         do
         {
-            integrate(ode_dds_new, r_of_s, 1.0e-6*s_stop, s_stop, 1.0e-5*s_stop);
-            cout << "r is now " << r_of_s << endl;
-        } while (r_of_s <= r);
+            const double beta = grid.beta(r_of_s.at(0));
+            const double gamma = gamma_ltz(grid.beta(r_of_s.at(0)));
+            // direction cosines in Eulerian frame, toward the observer (m) and away
+            // from the observer (p)
+            const double mu_E_p = sqrt(1.0 - pow(p / r_of_s.at(0), 2)) / r_of_s.at(0);
+            const double mu_E_m = -mu_E_p;
+            // direction cosines in Lagrangian frame
+            const double mu_L_p = (mu_E_p - beta) / (1.0 - beta * mu_E_p);
+            const double mu_L_m = (mu_E_m - beta) / (1.0 - beta * mu_E_m);
+            charODE_dds_new ode_dds_new(grid, mu_L_p);
+            cout << "dr/ds = " << gamma * (mu_L_p + beta) << endl;;
+            cout << "gamma = " << gamma << endl;
+            cout << "mu_L_p = " << mu_L_p << endl;
+            cout << "beta = " << beta << endl;
+            cout << "integrating from " << s_inc << " to " << s_inc*1.01 << endl;
+            cout << "r_of_s before integration = " << r_of_s.at(0) << endl;
+            size_t steps = integrate(ode_dds_new, r_of_s, s_inc, s_inc*1.01, 1.0e-5*s_inc);
+            cout << "r_of_s after integration = " << r_of_s.at(0) << endl;
+            cout << "steps = " << steps << endl;
+            cout << "r = " << r << endl;
+            cout << "r_next = " << r_next << endl;
+            s_inc *= 1.01;
+        } while (r_of_s.at(0) <= r_next);
     }
 
     //---------------- FIRST PASS: POSITIVE S -----------------
