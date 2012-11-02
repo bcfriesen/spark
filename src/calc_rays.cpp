@@ -3,7 +3,6 @@
 #include <cmath>
 #include <calc_rays.h>
 #include <charODE_dds.h>
-#include <charODE_dds_new.h>
 #include <charODE_ddr.h>
 #include <boost/numeric/odeint.hpp>
 
@@ -17,6 +16,9 @@ void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char)
     // s and mu coordinates for d/dr equations
     vector<double> x_ddr(2);
 
+    const double p    = it_char->get_p(); // impact parameter at point of tangency
+    const double beta = -grid.beta(it_char->get_p()); // v/c at point of tangency
+
     /** Upper limit of integration for the d/ds characteristic ray ODEs. We
      * integrate forward a tiny bit in s, then invert the ODEs to write them as
      * functions of r and continue the integration all the way to the outermost
@@ -26,48 +28,13 @@ void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char)
      * be on the same scale as the rest of the grid so as to avoid machine
      * roundoff errors, and 2.) it will still be cheap to integrate because it's
      * not far from the initial conditions. */
-    const double s_stop = 1.0e-3 * grid.rad(0);
-    double s_inc = 1.0e-3 * grid.rad(0);
-
-    const double p = it_char->get_p();
-
-    for (int i = 0; i < grid.get_num_layers()-1; i++)
-    {
-        vector<double> r_of_s(1, p);
-        const double r = grid.rad(i);
-        const double r_next = grid.rad(i+1);
-        do
-        {
-            const double beta = grid.beta(r_of_s.at(0));
-            const double gamma = gamma_ltz(grid.beta(r_of_s.at(0)));
-            // direction cosines in Eulerian frame, toward the observer (m) and away
-            // from the observer (p)
-            const double mu_E_p = sqrt(1.0 - pow(p / r_of_s.at(0), 2)) / r_of_s.at(0);
-            const double mu_E_m = -mu_E_p;
-            // direction cosines in Lagrangian frame
-            const double mu_L_p = (mu_E_p - beta) / (1.0 - beta * mu_E_p);
-            const double mu_L_m = (mu_E_m - beta) / (1.0 - beta * mu_E_m);
-            charODE_dds_new ode_dds_new(grid, mu_L_p);
-            cout << "dr/ds = " << gamma * (mu_L_p + beta) << endl;;
-            cout << "gamma = " << gamma << endl;
-            cout << "mu_L_p = " << mu_L_p << endl;
-            cout << "beta = " << beta << endl;
-            cout << "integrating from " << s_inc << " to " << s_inc*1.01 << endl;
-            cout << "r_of_s before integration = " << r_of_s.at(0) << endl;
-            size_t steps = integrate(ode_dds_new, r_of_s, s_inc, s_inc*1.01, 1.0e-5*s_inc);
-            cout << "r_of_s after integration = " << r_of_s.at(0) << endl;
-            cout << "steps = " << steps << endl;
-            cout << "r = " << r << endl;
-            cout << "r_next = " << r_next << endl;
-            s_inc *= 1.01;
-        } while (r_of_s.at(0) <= r_next);
-    }
+    const double s_stop = 1.0e-3 * p;
 
     //---------------- FIRST PASS: POSITIVE S -----------------
     // initial conditions for r and mu (see Eq. 3.6 and the paragraph preceding
     // it in Mihalas (1980))
-    x_dds.at(0) = it_char->get_p();
-    x_dds.at(1) = -grid.beta(it_char->get_p());
+    x_dds.at(0) = p;
+    x_dds.at(1) = -beta;
 
     // set up d/ds ODEs
     charODE_dds ode_dds(grid);
@@ -81,13 +48,10 @@ void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char)
     // initial conditions for the d/dr equations.
     charODE_ddr ode_ddr(grid);
 
-    // initial conditions for d/dr ODEs
-    x_ddr.at(0) = s_stop;
-    x_ddr.at(1) = x_dds.at(1);
-    cout << "initial conditions for d/dr sweep after positive s: ";
-    cout << "r small = " << x_dds.at(0) << " ";
-    cout << "s(r = small) = " << x_ddr.at(0) << " ";
-    cout << "mu(r = small) = " << x_ddr.at(1) << endl;
+    // initial conditions for d/dr ODEs (the dependent variables are now s and
+    // mu, not r and mu)
+    x_ddr.at(0) = s_stop; // s where we stopped before becomes the place where we start here
+    x_ddr.at(1) = x_dds.at(1); // mu from d/ds is now mu for d/dr
 
     // Now that we have s(r_0) and mu(r_0), switch to the new ODEs and
     // integrate these to find s(r) and mu(r) at each radial point, using
@@ -115,10 +79,6 @@ void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char)
     // initial conditions for d/dr ODEs
     x_ddr.at(0) = -s_stop;
     x_ddr.at(1) = x_dds.at(1);
-    cout << "initial conditions for d/dr sweep after negative s: ";
-    cout << "r small = " << x_dds.at(0) << " ";
-    cout << "s(r = small) = " << x_ddr.at(0) << " ";
-    cout << "mu(r = small) = " << x_ddr.at(1) << endl;
     // integrate over same r values
     integrate(ode_ddr, x_ddr, x_dds.at(0), grid.rad(0), 1.0e-5*s_stop);
     it_char->push_s(x_ddr.at(0));
