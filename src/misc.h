@@ -11,4 +11,7 @@ double gamma_ltz(double beta);
  */
 double interpolate(std::vector<std::pair <double, double> > table, double x);
 
+//! Which way do we integrate the characteristic rays?
+enum RayIntDir {FORWARD = 0, BACKWARD = 1};
+
 #endif

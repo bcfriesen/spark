@@ -6,6 +6,7 @@
 #include <my_exceptions.h>
 #include <characteristic.h>
 #include <calc_rays.h>
+#include <misc.h>
 
 using namespace std;
 
@@ -22,41 +23,63 @@ int main(int argc, char* argv[])
     myfile.open("derp.out");
     myfile.setf(ios::scientific);
 
-    vector<Characteristic> char_ray;
-    /* Initialize one fewer than the number of layers because a ray tangent to
-       the outermost layer doesn't actually sample any of the atmosphere. */
+    /* Split up characteristics according to which half of the ejecta they
+     * trace ("front" means "closer to observer"). By construction, rays which
+     * don't intersect the core match at s=0. */
+    vector<Characteristic> char_ray_front;
+    vector<Characteristic> char_ray_back;
+
+    /* Initialize non-core-intersecting rays. There are one fewer of these than
+     * the number of layers because a ray tangent to the outermost layer
+     * doesn't actually sample any of the atmosphere. */
     for (int i = 0; i < grid.get_num_layers()-1; i++)
     {
         Characteristic one_ray(grid, i);
-        char_ray.push_back(one_ray);
+        char_ray_front.push_back(one_ray);
+        char_ray_back.push_back(one_ray);
     }
 
-    // integrate characteristic ODEs
-    for (vector<Characteristic>::iterator it_char = char_ray.begin();
-            it_char != char_ray.end();
+    // integrate characteristic ODEs forward
+    for (vector<Characteristic>::iterator it_char = char_ray_front.begin();
+            it_char != char_ray_front.end();
             it_char++)
     {
-        calc_rays(grid, it_char);
+        calc_rays(grid, it_char, FORWARD);
+    }
+    // integrate characteristic ODEs backward
+    for (vector<Characteristic>::iterator it_char = char_ray_back.begin();
+            it_char != char_ray_back.end();
+            it_char++)
+    {
+        calc_rays(grid, it_char, BACKWARD);
     }
 
     // write out results
     myfile << "#mu" << "  " << "s" << "  " << "rad" << endl;
-    for (vector<Characteristic>::iterator it_char = char_ray.begin();
-            it_char != char_ray.end();
+    for (vector<Characteristic>::iterator it_char = char_ray_front.begin();
+            it_char != char_ray_front.end();
             it_char++)
     {
-        for (int i = 0; i < 128; i++)
+        for (int i = 0; i < grid.get_num_layers()-1; i++)
         {
             myfile << acos(it_char->get_mu(i)) << " "
                 << it_char->get_s(i) << " "
                 << grid.rad(i)
                 << endl;
         }
-        for (int i = 128; i < 256; i++)
+        myfile << endl;
+    }
+
+    myfile << "#" << " " <<  "mu" << "  " << "s" << "  " << "rad" << endl;
+    for (vector<Characteristic>::iterator it_char = char_ray_back.begin();
+            it_char != char_ray_back.end();
+            it_char++)
+    {
+        for (int i = 0; i < grid.get_num_layers()-1; i++)
         {
             myfile << acos(it_char->get_mu(i)) << " "
                 << it_char->get_s(i) << " "
-                << grid.rad(i-128)
+                << grid.rad(i)
                 << endl;
         }
         myfile << endl;
