@@ -4,6 +4,7 @@
 #include <misc.h>
 #include <grid.h>
 
+/** Characteristic ray d/ds ODEs. */
 class charODE_dds
 {
     public:

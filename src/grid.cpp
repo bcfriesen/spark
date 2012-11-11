@@ -10,7 +10,7 @@ using namespace std;
 
 GridClass::GridClass(char* yaml_file)
 {
-    // YAML file has all the file locations, parameters, etc.
+    /* YAML file has all the file locations, parameters, etc. */
     ifstream infile;
     infile.open(yaml_file);
 
@@ -58,9 +58,6 @@ GridClass::GridClass(char* yaml_file)
     }
 
     infile.close();
-
-    // sort layers with increasing radius
-    sort(rad_vel.begin(), rad_vel.end());
 }
 
 int GridClass::get_num_layers() const
@@ -100,19 +97,19 @@ double GridClass::beta(double rad) const
 
 double GridClass::dbeta_dr(int layer) const
 {
-    // forward derivative at the back
+    /* Forward derivative at the back. */
     if (layer == 0)
     {
         return (beta(layer+1) - beta(layer)) /
             (rad_vel.at(layer+1).first - rad_vel.at(layer).first);
     }
-    // backward derivative at the front
+    /* Backward derivative at the front. */
     else if (layer == rad_vel.size()-1)
     {
         return (beta(layer) - beta(layer-1)) /
             (rad_vel.at(layer).first - rad_vel.at(layer-1).first);
     }
-    // centered derivative anywhere in between
+    /* Centered derivative anywhere in between. */
     else
     {
         return (beta(layer+1) - beta(layer-1)) /
@@ -124,17 +121,17 @@ double GridClass::dbeta_dr(double rad) const
 {
     // TODO: figure out how to make step size not so knobby
     const double dr = 1.0e-4 * rad_vel.at(0).first;
-    // forward derivative at the back
+    /* Forward derivative at the back. */
     if (rad < rad_vel.at(1).first)
     {
         return (beta(rad+dr) - beta(rad)) / dr;
     }
-    // backward derivative at the front
+    /* Backward derivative at the front. */
     else if (rad > rad_vel.at(rad_vel.size()-2).first)
     {
         return (beta(rad) - beta(rad-dr)) / dr;
     }
-    // centered derivative anywhere in between
+    /* Centered derivative anywhere in between. */
     else
     {
         return (beta(rad+dr) - beta(rad-dr)) / (2.0*dr);

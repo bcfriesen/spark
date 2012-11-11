@@ -5,6 +5,7 @@
 #include <characteristic.h>
 #include <misc.h>
 
+/** Integrate characteristic ray ODEs. */
 void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char, RayIntDir direction);
 
 #endif

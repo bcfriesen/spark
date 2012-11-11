@@ -32,21 +32,21 @@ class Exception: public std::runtime_error
         static const std::string build_what(const std::string& msg);
 };
 
-//! Exception for missing files.
+/** Exception for missing files. */
 class FileNotFound: public Exception
 {
     public:
         FileNotFound(std::string filename);
 };
 
-//! Exception for out-of-bounds interpolation.
+/** Exception for out-of-bounds interpolation. */
 class InterpOutOfRange: public Exception
 {
     public:
         InterpOutOfRange(double x);
 };
 
-//! Exception for wrong # of command-line arguments.
+/** Exception for wrong # of command-line arguments. */
 class WrongCLIUsage: public Exception
 {
     public:

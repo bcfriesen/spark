@@ -14,10 +14,11 @@ int main(int argc, char* argv[])
 {
     cout.setf(ios::scientific);
 
-    // user must supply YAML file as argument
+    /* User must supply YAML file as argument */
     if (argc != 2) throw WrongCLIUsage();
 
-    GridClass grid(argv[1]); // grid constructor reads YAML file
+    /* Grid constructor reads YAML file. */
+    GridClass grid(argv[1]);
 
     ofstream myfile;
     myfile.open("derp.out");
@@ -39,14 +40,14 @@ int main(int argc, char* argv[])
         char_ray_back.push_back(one_ray);
     }
 
-    // integrate characteristic ODEs forward
+    /* Integrate characteristic ODEs forward from s=0. */
     for (vector<Characteristic>::iterator it_char = char_ray_front.begin();
             it_char != char_ray_front.end();
             it_char++)
     {
         calc_rays(grid, it_char, FORWARD);
     }
-    // integrate characteristic ODEs backward
+    /* Integrate characteristic ODEs backward from s=0. */
     for (vector<Characteristic>::iterator it_char = char_ray_back.begin();
             it_char != char_ray_back.end();
             it_char++)
@@ -54,7 +55,7 @@ int main(int argc, char* argv[])
         calc_rays(grid, it_char, BACKWARD);
     }
 
-    // write out results
+    /* Write out results. */
     myfile << "#mu" << "  " << "s" << "  " << "rad" << endl;
     for (vector<Characteristic>::iterator it_char = char_ray_front.begin();
             it_char != char_ray_front.end();
