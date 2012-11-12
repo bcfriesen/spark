@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
-PROJECT (RTCPP)
+PROJECT (SPARK)
 ENABLE_LANGUAGE (CXX)
 
 #----------------------------BEGIN ADD EXTRA MODULES----------------------------
