@@ -5,10 +5,11 @@ using namespace std;
 
 Characteristic::Characteristic(GridClass& grid, int i)
     : m_grid(&grid),
-      m_p(grid.rad(i))
+      m_p(grid.rad(i)),
+      tangent_layer_index(i)
 {}
 
-//! get impact parameter for this ray (at v = 0)
+/** Get impact parameter for this ray (at v = 0). */
 double Characteristic::get_p()
 {
     return m_p;
@@ -32,4 +33,9 @@ double Characteristic::get_s(int i)
 double Characteristic::get_mu(int i)
 {
     return mu.at(i);
+}
+
+int Characteristic::get_tangent_layer_index()
+{
+    return tangent_layer_index;
 }

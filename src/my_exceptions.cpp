@@ -29,3 +29,7 @@ InterpOutOfRange::InterpOutOfRange(double x)
 WrongCLIUsage::WrongCLIUsage()
 : Exception(ErrorMsg::WRONG_CLI_USAGE)
 {}
+
+NonmonotonicVelocityField::NonmonotonicVelocityField()
+: Exception(ErrorMsg::NONMONOTONIC)
+{}

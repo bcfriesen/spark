@@ -15,7 +15,7 @@ double interpolate(vector<pair <double, double> > table, double x)
     const double inf = numeric_limits<double>::infinity();
 
     // make sure we're interpolating within limits
-    if (x - table.back().first > 0 || x - table.at(0).first < 0)
+    if (x - table.back().first > 0.0 || x - table.at(0).first < 0.0)
         throw InterpOutOfRange(x);
 
     vector< pair< double, double > >::iterator it, it2;

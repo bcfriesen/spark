@@ -19,7 +19,7 @@ void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char, R
     /** Impact parameter at point of tangency. */
     const double p    = it_char->get_p();
     /* \f$v/c\f$ at point of tangency. */
-    const double beta = -grid.beta(it_char->get_p());
+    const double beta = -grid.beta(it_char->get_tangent_layer_index());
 
     /** Upper limit of integration for the \f$d/ds\f$ characteristic ray ODEs.
      * We integrate forward a tiny bit in s, then invert the ODEs to write them
@@ -32,16 +32,16 @@ void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char, R
      * integrate because it's not far from the initial conditions. */
     const double s_stop = 1.0e-3 * p;
 
-    /* Initial conditions for r and mu (see Eq. 3.6 and the paragraph preceding
-    // it in Mihalas (1980)). */
-    x_dds.at(0) = p;
-    x_dds.at(1) = -beta;
-
     /* Set up d/ds ODEs. */
     charODE_dds ode_dds(grid);
 
     if (direction == FORWARD)
     {
+        /* Initial conditions for r and mu (see Eq. 3.6 and the paragraph preceding
+        // it in Mihalas (1980)). */
+        x_dds.at(0) = p;
+        x_dds.at(1) = -beta;
+
         /* Now integrate d/ds equations. First do it toward positive s, then
          * again toward negative s. */
         // TODO: figure out a more automagic initial step size
@@ -77,7 +77,7 @@ void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char, R
     {
         /* Same initial conditions as before */
         x_dds.at(0) = it_char->get_p();
-        x_dds.at(1) = -grid.beta(it_char->get_p());
+        x_dds.at(1) = -grid.beta(it_char->get_tangent_layer_index());
         /* Integrate toward negative s this time. */
         integrate(ode_dds, x_dds, -1.0e-6*s_stop, -s_stop, -1.0e-5*s_stop);
         /* Initial conditions for d/dr ODEs. */

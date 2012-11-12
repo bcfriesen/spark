@@ -57,6 +57,13 @@ GridClass::GridClass(char* yaml_file)
         rad_vel.push_back(rv_one);
     }
 
+    /* Peter Hoeflich's models' layers start at the outermost layers and go
+     * inward, but the interpolator expects a monotonically increasing vector
+     * of values, so we have to reverse them here. */
+    // TODO: add flags for other hydro models which may NOT have reversed
+    // layers
+    reverse(rad_vel.begin(), rad_vel.end());
+
     infile.close();
 }
 
