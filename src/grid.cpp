@@ -1,9 +1,9 @@
 #include <fstream>
 #include <algorithm>
 #include <yaml-cpp/yaml.h>
+#include <gsl/gsl_const_cgsm.h>
 #include <grid.h>
 #include <my_exceptions.h>
-#include <const.h>
 #include <misc.h>
 
 using namespace std;
@@ -47,13 +47,14 @@ GridClass::GridClass(char* yaml_file)
 
     pair<double, double> rv_one; // radius & velocity of one layer
 
+    const double cm2km = 1.0e-5; // convert cm to km
     for (int i = 0; i < nlayer; i++)
     {
         getline(infile, oneline);
         istringstream is(oneline);
         is >> x1 >> x2 >> x3 >> x4 >> x5;
         rv_one.first = x1;
-        rv_one.second = x5 / physconst::cm2km;
+        rv_one.second = x5 / cm2km;
         rad_vel.push_back(rv_one);
     }
 
@@ -94,12 +95,12 @@ double GridClass::vel(double rad) const
 
 double GridClass::beta(int layer) const
 {
-    return rad_vel.at(layer).second / physconst::c_light;
+    return rad_vel.at(layer).second / GSL_CONST_CGSM_SPEED_OF_LIGHT;
 }
 
 double GridClass::beta(double rad) const
 {
-    return vel(rad) / physconst::c_light;
+    return vel(rad) / GSL_CONST_CGSM_SPEED_OF_LIGHT;
 }
 
 double GridClass::dbeta_dr(int layer) const
