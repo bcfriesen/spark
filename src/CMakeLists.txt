@@ -7,9 +7,13 @@ SET (SPARK_SOURCES
     main.cpp
     misc.cpp
     my_exceptions.cpp
+    EOS/electron.cpp
+    EOS/element.cpp
+    EOS/species.cpp
     )
 
 INCLUDE_DIRECTORIES (${PROJECT_SOURCE_DIR}/src
+                     ${PROJECT_SOURCE_DIR}/src/EOS
                      $ENV{HOME}/yaml-cpp/include
                      $ENV{HOME}/odeint-v2
                      $ENV{HOME}/boost_1_51_0
