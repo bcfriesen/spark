@@ -11,17 +11,17 @@ using namespace boost::numeric::odeint;
 
 void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char, RayIntDir direction)
 {
-    /** \f$r\f$ and \f$mu\f$ coordinates for \f$d/ds\f$ equations. */
+    /* \f$r\f$ and \f$mu\f$ coordinates for \f$d/ds\f$ equations. */
     vector<double> x_dds(2);
-    /** \f$s\f$ and \f$mu\f$ coordinates for \f$d/dr\f$ equations. */
+    /* \f$s\f$ and \f$mu\f$ coordinates for \f$d/dr\f$ equations. */
     vector<double> x_ddr(2);
 
-    /** Impact parameter at point of tangency. */
+    /* Impact parameter at point of tangency. */
     const double p    = it_char->get_p();
     /* \f$v/c\f$ at point of tangency. */
     const double beta = -grid.beta(it_char->get_tangent_layer_index());
 
-    /** Upper limit of integration for the \f$d/ds\f$ characteristic ray ODEs.
+    /* Upper limit of integration for the \f$d/ds\f$ characteristic ray ODEs.
      * We integrate forward a tiny bit in s, then invert the ODEs to write them
      * as functions of r and continue the integration all the way to the
      * outermost radial point. (See discussion on p. 581 of Mihalas, ApJ, 237,
@@ -38,7 +38,7 @@ void calc_rays(GridClass &grid, std::vector<Characteristic>::iterator it_char, R
     if (direction == FORWARD)
     {
         /* Initial conditions for r and mu (see Eq. 3.6 and the paragraph preceding
-        // it in Mihalas (1980)). */
+         * it in Mihalas (1980)). */
         x_dds.at(0) = p;
         x_dds.at(1) = -beta;
 

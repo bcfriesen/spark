@@ -19,11 +19,11 @@ void charODE_ddr::operator() (const vector<double>& x,
     const double beta     = m_grid->beta(r);
     const double dbeta_dr = m_grid->dbeta_dr(r);
 
-    // ds/dr, which is just the inverse of dr/ds (Eq. 3.4a of Mihalas (1980))
+    /* ds/dr, which is just the inverse of dr/ds (Eq. 3.4a of Mihalas (1980)) */
     const double ds_dr = 1.0 / (gamma * (mu + beta));
 
-    // d\mu/dr, which we get from the chain rule on d\mu/ds (Eq. 3.4b of Mihalas
-    // (1980))
+    /* d\mu/dr, which we get from the chain rule on d\mu/ds (Eq. 3.4b of Mihalas
+     * (1980)) */
     const double dmu_dr = ((1.0 - pow(mu, 2)) / (mu + beta)) *
         (((1.0 + beta * mu) / r) - pow(gamma, 2) *
          (mu + beta) * dbeta_dr);

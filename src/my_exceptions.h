@@ -4,8 +4,8 @@
 #include <string>
 #include <stdexcept>
 
-//! Error message namespace.
-/**
+/** \brief Error message namespace.
+ *
  * Shamelessly stolen from yaml-cpp.
  */
 namespace ErrorMsg
@@ -16,8 +16,8 @@ namespace ErrorMsg
     const std::string NONMONOTONIC = "Non-monotonic velocity field!";
 }
 
-//! Generic exception class.
-/**
+/** \brief Generic exception class.
+ *
  * Shamelessly stolen from yaml-cpp. Confusingly, STL contains already an
  * exception class called "exception", from which the class "runtime_error"
  * derives, from which this custom class "Exception" derives. I feel like I

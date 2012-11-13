@@ -3,7 +3,7 @@
 
 #include <vector>
 
-/** Contains most grid-based variables and functions. */
+/** \brief Contains most grid-based variables and functions. */
 class GridClass
 {
     public:
@@ -27,19 +27,19 @@ class GridClass
         /** Calculate \f$ d\beta/dr \f$ at tabulated data points. */
         double dbeta_dr(int layer) const;
         /** Calculate \f$ d\beta/dr \f$ by interpolating between data points. */
-        // FIXME: this whole thing is probably completely wrong
+        // FIXME: this is probably completely wrong
         double dbeta_dr(double rad) const;
-
-        /* Sometimes it's useful to iterate over the grid variables from
-         * outside this class. */
+        /** Begin iterator for radius/velocity pair. */
         std::vector< std::pair<double, double> >::iterator begin();
+        /** End iterator for radius/velocity pair. */
         std::vector< std::pair<double, double> >::iterator end();
 
         friend double interpolate(std::vector< std::pair<double, double> > table, double x);
         friend double gamma_ltz(double beta);
 
     private:
-        /** Radius and velocity of each layer. */
+        /** Radius and velocity of each layer. Since we're assuming homologous
+         * expansion, these are always paired together. */
         std::vector< std::pair<double, double> > rad_vel;
         /** Number of core-intersecting rays. */
         int num_core_intersect_rays;

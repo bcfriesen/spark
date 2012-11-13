@@ -9,7 +9,6 @@ Characteristic::Characteristic(GridClass& grid, int i)
       tangent_layer_index(i)
 {}
 
-/** Get impact parameter for this ray (at v = 0). */
 double Characteristic::get_p()
 {
     return m_p;
