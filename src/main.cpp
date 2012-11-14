@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     for (int i = 0; i < grid.get_num_layers()-1; i++)
     {
         if (grid.rad(i) > grid.rad(i+1) || grid.vel(i) > grid.vel(i+1))
-            throw NonmonotonicVelocityField();
+            throw NonmonotonicVelocityField(grid.vel(i));
     }
 
     ofstream myfile;

@@ -30,6 +30,6 @@ WrongCLIUsage::WrongCLIUsage()
 : Exception(ErrorMsg::WRONG_CLI_USAGE)
 {}
 
-NonmonotonicVelocityField::NonmonotonicVelocityField()
-: Exception(ErrorMsg::NONMONOTONIC)
+NonmonotonicVelocityField::NonmonotonicVelocityField(double vel)
+: Exception(ErrorMsg::NONMONOTONIC + boost::lexical_cast<string>(vel))
 {}
