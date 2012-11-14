@@ -7,7 +7,7 @@
 class ElementClass: public SpeciesClass
 {
     public:
-        /* All elements (besides electrons) have an atomic number and an
+        /** All elements (besides electrons) have an atomic number and an
          * ionization stage. The nomenclature here follows Hummer & Mihalas
          * (1988): \f$ I = 1 \f$ is neutral. */
         ElementClass(int Z, int I);
