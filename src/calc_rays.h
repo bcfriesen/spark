@@ -1,5 +1,5 @@
-#ifndef CALC_RAYS
-#define CALC_RAYS
+#ifndef CALC_RAYS_H
+#define CALC_RAYS_H
 
 #include <grid.h>
 #include <characteristic.h>

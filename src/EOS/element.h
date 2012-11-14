@@ -1,3 +1,6 @@
+#ifndef ELEMENT_H
+#define ELEMENT_H
+
 #include <species.h>
 
 class ElementClass: public SpeciesClass
@@ -13,3 +16,5 @@ class ElementClass: public SpeciesClass
         /** Ionization state (\f$ I = 1 \f$ is neutral). */
         int m_I;
 };
+
+#endif
