@@ -3,6 +3,11 @@
 
 #include <misc.h>
 
+/** \brief Generic particle class.
+ *
+ * All particles involved in calculating the EOS are some kind of species. The
+ * only thing they all have in common is the partition function.
+ * */
 class SpeciesClass
 {
     protected:

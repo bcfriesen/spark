@@ -3,6 +3,7 @@
 
 #include <species.h>
 
+/** \brief A non-electron species. */
 class ElementClass: public SpeciesClass
 {
     public:
@@ -10,7 +11,8 @@ class ElementClass: public SpeciesClass
          * ionization stage. The nomenclature here follows Hummer & Mihalas
          * (1988): \f$ I = 1 \f$ is neutral. */
         ElementClass(int Z, int I);
-    private:
+
+    protected:
         /** Atomic number. */
         int m_Z;
         /** Ionization state (\f$ I = 1 \f$ is neutral). */

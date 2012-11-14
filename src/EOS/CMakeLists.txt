@@ -1,6 +1,7 @@
 SET (EOS_SOURCES
      electron.cpp
      element.cpp
+     neutral_element.cpp
      species.cpp
      )
 
