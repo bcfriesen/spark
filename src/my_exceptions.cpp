@@ -33,3 +33,7 @@ WrongCLIUsage::WrongCLIUsage()
 NonmonotonicVelocityField::NonmonotonicVelocityField(double vel)
 : Exception(ErrorMsg::NONMONOTONIC + boost::lexical_cast<string>(vel))
 {}
+
+InvalidElement::InvalidElement(int Z, int I)
+: Exception(ErrorMsg::INVALID_ELEMENT + "(" + boost::lexical_cast<string>(Z) + ", " + boost::lexical_cast<string>(I) + ")")
+{}

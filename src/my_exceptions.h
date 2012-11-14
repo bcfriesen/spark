@@ -14,6 +14,7 @@ namespace ErrorMsg
     const std::string INTERP_OUT_OF_RANGE = "Interpolation out of range for value: ";
     const std::string WRONG_CLI_USAGE = "Usage: <binary> <yaml_file>";
     const std::string NONMONOTONIC = "Non-monotonic velocity field! Error on this velocity: ";
+    const std::string INVALID_ELEMENT = "Invalid ionization stage! (Z, I) = ";
 }
 
 /** \brief Generic exception class.
@@ -59,6 +60,13 @@ class NonmonotonicVelocityField: public Exception
 {
     public:
         NonmonotonicVelocityField(double vel);
+};
+
+/** Ionization stage larger than nuclear charge + 1 */
+class InvalidElement: public Exception
+{
+    public:
+        InvalidElement(int Z, int I);
 };
 
 #endif

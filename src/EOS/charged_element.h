@@ -1,6 +1,8 @@
 #ifndef CHARGED_ELEMENT_H
 #define CHARGED_ELEMENT_H
 
+#include <element.h>
+
 class ChargedElementClass: public ElementClass
 {
     public:
