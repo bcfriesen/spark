@@ -7,9 +7,6 @@ SET (SPARK_SOURCES
     main.cpp
     misc.cpp
     my_exceptions.cpp
-    EOS/electron.cpp
-    EOS/element.cpp
-    EOS/species.cpp
     )
 
 INCLUDE_DIRECTORIES (${PROJECT_SOURCE_DIR}/src
@@ -21,5 +18,10 @@ INCLUDE_DIRECTORIES (${PROJECT_SOURCE_DIR}/src
 
 LINK_DIRECTORIES ($ENV{HOME}/yaml-cpp/build)
 
+ADD_SUBDIRECTORY (EOS)
+
 ADD_EXECUTABLE (${PROJECT_NAME} ${SPARK_SOURCES})
-TARGET_LINK_LIBRARIES (${PROJECT_NAME} yaml-cpp)
+TARGET_LINK_LIBRARIES (${PROJECT_NAME}
+                        yaml-cpp
+                        EOS
+                        )
