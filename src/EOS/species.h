@@ -10,8 +10,20 @@
  * */
 class SpeciesClass
 {
+    public:
+        /** Set number abundance. */
+        void set_abund(double N);
+        /** Return number abundance. */
+        double get_abund() const;
+
     protected:
-        /** Partition function. Every species gets one of these. */
+        /** Particle mass. */
+        /* TODO: Implement function to set particle mass. This will come from
+         * reading model atom data. But first I need to learn HDF5. */
+        double m_M_s;
+        /** Number abundance. */
+        double m_N;
+        /** Partition function. */
         double m_part_Z;
 };
 
