@@ -14,6 +14,7 @@ INCLUDE_DIRECTORIES (${PROJECT_SOURCE_DIR}/src
                      $ENV{HOME}/yaml-cpp/include
                      $ENV{HOME}/odeint-v2
                      $ENV{HOME}/boost_1_51_0
+                     $ENV{HOME}/gsl/include
                      )
 
 LINK_DIRECTORIES ($ENV{HOME}/yaml-cpp/build)
