@@ -7,6 +7,7 @@
 #include <characteristic.h>
 #include <calc_rays.h>
 #include <misc.h>
+#include <utils/make_linelist_hdf.h>
 
 using namespace std;
 
@@ -49,6 +50,9 @@ int main(int argc, char* argv[])
         char_ray_front.push_back(one_ray);
         char_ray_back.push_back(one_ray);
     }
+
+    int result = make_linelist_hdf("/home5/baker/friesen/SPARK/src/utils/gf0100.all.txt");
+    if (result != 0) return -1;
 
     /* Integrate characteristic ODEs forward from s=0. */
     cout << "Integrating forward characteristics..." << endl << endl;
