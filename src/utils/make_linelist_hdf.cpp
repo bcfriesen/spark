@@ -66,7 +66,7 @@ int make_linelist_hdf(const char* filename)
 
     /* We must extend the dataset each time we want to append new data to it. */
     hsize_t extend[2];
-    extend[0] = HDF_RANK;
+    extend[0] = 1;
     extend[1] = HDF_LENGTH;
 
     H5::DataSpace hdf_dataspace_new_line;
