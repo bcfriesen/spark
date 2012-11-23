@@ -40,9 +40,6 @@ int make_linelist_hdf(const char* filename)
     hsize_t chunk_dims[2] = {1, HDF_LENGTH};
     hdf_cparms.setChunk(HDF_RANK, chunk_dims);
 
-    const int fill_val = 0;
-    hdf_cparms.setFillValue(H5::PredType::NATIVE_DOUBLE, &fill_val);
-
     /* Create the data space. A missing third argument means the maximum extent
      * of the data space is unlimited.*/
     H5::DataSpace hdf_dataspace(HDF_RANK, line_dim, max_line_dim);
