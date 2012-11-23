@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
         char_ray_back.push_back(one_ray);
     }
 
-    int result = make_linelist_hdf("/home5/baker/friesen/SPARK/src/utils/gf0100.all.txt");
+    int result = make_linelist_hdf("../src/utils/gf0100.all.txt");
     if (result != 0) return -1;
 
     /* Integrate characteristic ODEs forward from s=0. */
