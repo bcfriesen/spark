@@ -78,7 +78,14 @@ int make_linelist_hdf(const char* filename)
         /* Read line data from ASCII file. */
         istringstream is(oneline);
 
-        is >> wl >> loggf >> elcode >> energy1 >> J1 >> blank >> energy2 >> J2;
+        is >> setw(11) >> wl
+           >> setw( 7) >> loggf
+           >> setw( 6) >> elcode
+           >> setw(12) >> energy1
+           >> setw( 5) >> J1
+           >> setw( 1) >> blank
+           >> setw(12) >> energy2
+           >> setw( 5) >> J2;
 
         one_line_of_data[0] = wl;
         one_line_of_data[1] = loggf;
