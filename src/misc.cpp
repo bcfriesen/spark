@@ -26,3 +26,9 @@ double interpolate(vector<pair <double, double> > table, double x)
     --it2;
     return it2->second + (it->second - it2->second)*(x - it2->first)/(it->first - it2->first);
 }
+
+std::string getEnvVar(std::string const &key)
+{
+    char* val = getenv(key.c_str());
+    return val == NULL ? std::string("") : std::string(val);
+}

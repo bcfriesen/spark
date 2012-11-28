@@ -2,6 +2,8 @@
 #define MISC_H
 
 #include <vector>
+#include <string>
+#include <cstdlib>
 
 /** Calculates Lorentz factor \f$ \gamma \equiv (1 - \beta^2)^{-1/2} \f$. */
 double gamma_ltz(double beta);
