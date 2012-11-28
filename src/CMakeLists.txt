@@ -1,12 +1,9 @@
 SET (SPARK_SOURCES
-    calc_rays.cpp
-    charODE_dds.cpp
-    charODE_ddr.cpp
-    characteristic.cpp
-    grid.cpp
-    main.cpp
-    misc.cpp
-    my_exceptions.cpp
+     characteristic.cpp
+     grid.cpp
+     main.cpp
+     misc.cpp
+     my_exceptions.cpp
     )
 
 INCLUDE_DIRECTORIES (${PROJECT_SOURCE_DIR}/src

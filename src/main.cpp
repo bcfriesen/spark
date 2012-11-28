@@ -29,15 +29,18 @@ int main(int argc, char* argv[])
             throw NonmonotonicVelocityField(grid.vel(i));
     }
 
+    // TODO: include other sanity checks (v > 0, v < c, etc.)
+
     ofstream myfile;
+    // TODO: make output file name an option in the YAML file
     myfile.open("derp.out");
     myfile.setf(ios::scientific);
 
     /* Split up characteristics according to which half of the ejecta they
      * trace ("front" means "closer to observer"). By construction, rays which
      * don't intersect the core match at s=0. */
-    vector<Characteristic> char_ray_front;
-    vector<Characteristic> char_ray_back;
+    vector<CharNCI_F> char_ray_front;
+    vector<CharNCI_B> char_ray_back;
 
     /* Initialize non-core-intersecting rays. There are one fewer of these than
      * the number of layers because a ray tangent to the outermost layer
@@ -45,38 +48,26 @@ int main(int argc, char* argv[])
     cout << "Setting up characteristic rays..." << endl << endl;
     for (int i = 0; i < grid.get_num_layers()-1; i++)
     {
-        Characteristic one_ray(grid, i);
+        CharNCI_F one_ray(grid, i);
         char_ray_front.push_back(one_ray);
+    }
+    for (int i = 0; i < grid.get_num_layers()-1; i++)
+    {
+        CharNCI_B one_ray(grid, i);
         char_ray_back.push_back(one_ray);
     }
 
     /* Integrate characteristic ODEs forward from s=0. */
     cout << "Integrating forward characteristics..." << endl << endl;
-    for (vector<Characteristic>::iterator it_char = char_ray_front.begin();
-            it_char != char_ray_front.end();
-            it_char++)
-    {
-        calc_rays(grid, it_char, FORWARD);
-    }
-    /* Integrate characteristic ODEs backward from s=0. */
-    cout << "Integrating backward characteristics..." << endl << endl;
-    for (vector<Characteristic>::iterator it_char = char_ray_back.begin();
-            it_char != char_ray_back.end();
-            it_char++)
-    {
-        calc_rays(grid, it_char, BACKWARD);
-    }
+    calc_rays(grid, char_ray_front);
 
     /* Write out results. */
     cout << "Saving characteristic data results..." << endl << endl;
-    for (int i = 0; i < grid.get_num_layers()-1; i++)
+    for (vector<CharNCI_F>::iterator it_char = char_ray_front.begin(); it_char != char_ray_front.end(); ++it_char)
     {
-        myfile << grid.rad(i);
-        for (vector<Characteristic>::iterator it_char = char_ray_front.begin();
-                it_char != char_ray_front.end();
-                it_char++)
+        for (vector<pair<double, double> >::const_iterator it_val = it_char->s_mu_vec_begin(); it_val != it_char->s_mu_vec_end(); ++it_val)
         {
-            myfile << " " << acos(it_char->get_mu(i));
+            myfile << " " << it_val->first << " " << it_val->second << endl;
         }
         myfile << endl;
     }
