@@ -27,14 +27,14 @@ class Characteristic
         virtual double sign_of_mu() = 0;
         /** Iterator lower bound for the vector of \f$ s(r_i) \f$ and \f$
          * mu(r_i) \f$ pairs. */
-        std::vector<std::pair<double, double> >::const_iterator s_mu_vec_begin();
+        std::vector< std::pair<double, double> >::const_iterator s_mu_vec_begin();
         /** Iterator upper bound for the \f$ s(r_i) \f$ vector. */
-        std::vector<std::pair<double, double> >::const_iterator s_mu_vec_end();
+        std::vector< std::pair<double, double> >::const_iterator s_mu_vec_end();
 
     protected:
         /** Path length and direction cosine along ray (both functions of \f$ r
          * \f$). */
-        std::vector<std::pair<double, double> > m_s_mu;
+        std::vector< std::pair<double, double> > m_s_mu;
         /** Pointer to grid variables. */
         GridClass* m_grid;
 

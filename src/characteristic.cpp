@@ -52,12 +52,12 @@ double CharNCI_F::sign_of_mu()
     return +1.0;
 }
 
-vector<pair<double, double> >::const_iterator Characteristic::s_mu_vec_begin()
+vector< pair<double, double> >::const_iterator Characteristic::s_mu_vec_begin()
 {
     return m_s_mu.begin();
 }
 
-vector<pair<double, double> >::const_iterator Characteristic::s_mu_vec_end()
+vector< pair<double, double> >::const_iterator Characteristic::s_mu_vec_end()
 {
     return m_s_mu.end();
 }

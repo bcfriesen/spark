@@ -10,7 +10,7 @@ double gamma_ltz(double beta)
     return 1.0 / sqrt(1.0 - pow(beta, 2));
 }
 
-double interpolate(vector<pair <double, double> > table, double x)
+double interpolate(vector< pair<double, double> > table, double x)
 {
     const double inf = numeric_limits<double>::infinity();
 

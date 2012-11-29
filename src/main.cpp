@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
     cout << "Saving characteristic data results..." << endl << endl;
     for (vector<CharNCI_F>::iterator it_char = char_ray_front.begin(); it_char != char_ray_front.end(); ++it_char)
     {
-        for (vector<pair<double, double> >::const_iterator it_val = it_char->s_mu_vec_begin(); it_val != it_char->s_mu_vec_end(); ++it_val)
+        for (vector< pair<double, double> >::const_iterator it_val = it_char->s_mu_vec_begin(); it_val != it_char->s_mu_vec_end(); ++it_val)
         {
             myfile << " " << it_val->first << " " << it_val->second << endl;
         }
