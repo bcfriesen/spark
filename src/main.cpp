@@ -58,8 +58,8 @@ int main(int argc, char* argv[])
         char_ray_back.push_back(one_ray);
     }
 
-    // int result = make_linelist_hdf("../src/utils/gf0100.all.txt");
-    // if (result != 0) return -1;
+    // TODO: make linelist construction option a parameter in the YAML file
+    // make_linelist_hdf("../src/utils/gfall.dat");
 
     /* Integrate characteristic ODEs forward from s=0. */
     cout << "Integrating forward characteristics..." << endl << endl;

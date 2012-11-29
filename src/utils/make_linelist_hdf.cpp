@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int make_linelist_hdf(const char* filename)
+void make_linelist_hdf(const char* filename)
 {
     const H5std_string HDF_FILE_NAME("lines.h5");
     const H5std_string HDF_DATASET_NAME("KuruczLines");
@@ -112,6 +112,4 @@ int make_linelist_hdf(const char* filename)
     cout << "HDF linelist construction complete!" << endl << endl;
 
     infile.close();
-
-    return 0;
 }
