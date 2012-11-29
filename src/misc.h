@@ -12,4 +12,7 @@ double gamma_ltz(double beta);
  * StackOverflow. */
 double interpolate(std::vector<std::pair <double, double> > table, double x);
 
+/** Retrieves environment variables. */
+std::string getEnvVar(std::string const &key);
+
 #endif
