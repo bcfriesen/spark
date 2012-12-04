@@ -1,3 +1,4 @@
-# sample YAML file
+# Sample YAML file, but with a negative velocity at the innermost layer. The
+# code should throw an exception when supplied with this file.
 layer_file: "../example/layer.pah_std_d3.3_nv.dat"
 num_core_intersect_rays: 10

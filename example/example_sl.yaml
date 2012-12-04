@@ -1,3 +1,4 @@
-# sample YAML file
+# Sample YAML file, but with the outermost layer moving superluminally. The code
+# should throw an exception when supplied with this file.
 layer_file: "../example/layer.pah_std_d3.3_sl.dat"
 num_core_intersect_rays: 10

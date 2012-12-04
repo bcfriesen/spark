@@ -1,3 +1,5 @@
-# sample YAML file
+# Sample YAML file, but with the outer two layers reversed so as to form a
+# non-monotonic velocity field. The code should throw an exception when supplied
+# with this file.
 layer_file: "../example/layer.pah_std_d3.3_nm.dat"
 num_core_intersect_rays: 10
