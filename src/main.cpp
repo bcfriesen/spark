@@ -14,7 +14,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    cout << endl << "Welcome to SPARK!" << endl << endl;
+    cout << endl << "Welcome to spark!" << endl << endl;
     cout.setf(ios::scientific);
 
     /* User must supply YAML file as argument */

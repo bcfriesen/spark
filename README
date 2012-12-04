@@ -1,4 +1,4 @@
-Welcome to SPARK, a stupid 1-D ALI code for doing radiative transfer.
+Welcome to spark, a stupid 1-D ALI code for doing radiative transfer.
 
 Dependencies:
     - C++ compiler
