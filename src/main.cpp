@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <cmath>
+#include <gsl/gsl_const_cgsm.h>
 #include <grid.h>
 #include <my_exceptions.h>
 #include <characteristic.h>
@@ -31,6 +32,17 @@ int main(int argc, char* argv[])
     }
 
     // TODO: include other sanity checks (v > 0, v < c, etc.)
+    for (vector< pair<double, double> >::const_iterator it_grid = grid.begin(); it_grid != grid.end(); ++it_grid)
+    {
+        if (it_grid->second < 0.0)
+        {
+            throw NegativeVelocity(it_grid->second);
+        }
+        else if (it_grid->second > GSL_CONST_CGSM_SPEED_OF_LIGHT)
+        {
+            throw SuperluminalVelocity(it_grid->second);
+        }
+    }
 
     ofstream myfile;
     // TODO: make output file name an option in the YAML file
