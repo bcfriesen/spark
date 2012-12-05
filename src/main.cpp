@@ -31,7 +31,6 @@ int main(int argc, char* argv[])
             throw NonmonotonicVelocityField(grid.vel(i));
     }
 
-    // TODO: include other sanity checks (v > 0, v < c, etc.)
     for (vector< pair<double, double> >::const_iterator it_grid = grid.begin(); it_grid != grid.end(); ++it_grid)
     {
         if (it_grid->second < 0.0)
