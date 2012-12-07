@@ -2,6 +2,7 @@ Welcome to spark, a stupid 1-D ALI code for doing radiative transfer.
 
 Dependencies:
     - C++ compiler
+    - Fortran compiler
     - Boost
     - yaml-cpp
     - odeint-v2 (currently part of the Boost sandbox)
