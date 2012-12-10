@@ -8,7 +8,6 @@
 #include <characteristic.h>
 #include <calc_rays.h>
 #include <misc.h>
-#include <utils/make_linelist_hdf.h>
 
 using namespace std;
 
@@ -68,9 +67,6 @@ int main(int argc, char* argv[])
         CharNCI_B one_ray(grid, i);
         char_ray_back.push_back(one_ray);
     }
-
-    // TODO: make linelist construction option a parameter in the YAML file
-    // make_linelist_hdf("../src/utils/gfall.dat");
 
     /* Integrate characteristic ODEs forward from s=0. */
     cout << "Integrating forward characteristics..." << endl << endl;
