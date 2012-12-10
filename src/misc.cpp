@@ -32,3 +32,8 @@ std::string getEnvVar(std::string const &key)
     char* val = getenv(key.c_str());
     return val == NULL ? std::string("") : std::string(val);
 }
+
+double gaussian(double x, double a, double b, double c)
+{
+    return (a * exp(-pow(x - b, 2) / (2.0 * pow(c, 2))));
+}
