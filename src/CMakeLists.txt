@@ -6,15 +6,14 @@ SET (SPARK_SOURCES
      my_exceptions.cpp
     )
 
-INCLUDE_DIRECTORIES (${PROJECT_SOURCE_DIR}/src
-                     ${PROJECT_SOURCE_DIR}/src/EOS
-                     ${PROJECT_SOURCE_DIR}/src/utils
-                     $ENV{YAML_DIR}/include
-                     $ENV{ODEINT_DIR}
-                     $ENV{BOOST_DIR}
-                     $ENV{GSL_DIR}/include
-                     $ENV{HDF_DIR}/include
-                     )
+INCLUDE_DIRECTORIES (
+    ${PROJECT_SOURCE_DIR}/src
+    ${PROJECT_SOURCE_DIR}/src/misc
+    $ENV{YAML_DIR}/include
+    $ENV{ODEINT_DIR}
+    $ENV{BOOST_DIR}
+    $ENV{GSL_DIR}/include
+    )
 
 LINK_DIRECTORIES (
     $ENV{YAML_DIR}
