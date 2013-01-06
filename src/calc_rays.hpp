@@ -33,7 +33,7 @@ void calc_rays(const GridClass &grid, std::vector<T> &ray_vector)
         /* Integrate ds/dr a la Hauschildt (1992). */
         /* By definition s = 0 at the tangent point. */
         s_of_r.at(0) = 1.0e-30*grid.rad(0);
-        for (int i = it_char->get_tangent_layer_index(); i < grid.get_num_layers()-1; i++)
+        for (unsigned int i = it_char->get_tangent_layer_index(); i < grid.get_num_layers()-1; i++)
         {
             if (i == it_char->get_tangent_layer_index())
             {

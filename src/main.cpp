@@ -24,18 +24,21 @@ int main(int argc, char* argv[])
     GridClass grid(argv[1]);
 
     /* Sanity check: velocity field must be monotonic. */
-    for (int i = 0; i < grid.get_num_layers()-1; i++)
+    for (unsigned int i = 0; i < grid.get_num_layers()-1; i++)
     {
         if (grid.rad(i) > grid.rad(i+1) || grid.vel(i) > grid.vel(i+1))
             throw NonmonotonicVelocityField(grid.vel(i));
     }
 
+    // Iterate over raidus-velocity coordinate pairs. (first = radius; second = velocity)
     for (vector< pair<double, double> >::const_iterator it_grid = grid.begin(); it_grid != grid.end(); ++it_grid)
     {
+        // If velocity is negative then die.
         if (it_grid->second < 0.0)
         {
             throw NegativeVelocity(it_grid->second);
         }
+        // If velocity is faster than the speed of light then die.
         else if (it_grid->second > GSL_CONST_CGSM_SPEED_OF_LIGHT)
         {
             throw SuperluminalVelocity(it_grid->second);
@@ -57,12 +60,12 @@ int main(int argc, char* argv[])
      * the number of layers because a ray tangent to the outermost layer
      * doesn't actually sample any of the atmosphere. */
     cout << "Setting up characteristic rays..." << endl << endl;
-    for (int i = 0; i < grid.get_num_layers()-1; i++)
+    for (unsigned int i = 0; i < grid.get_num_layers()-1; i++)
     {
         CharNCI_F one_ray(grid, i);
         char_ray_front.push_back(one_ray);
     }
-    for (int i = 0; i < grid.get_num_layers()-1; i++)
+    for (unsigned int i = 0; i < grid.get_num_layers()-1; i++)
     {
         CharNCI_B one_ray(grid, i);
         char_ray_back.push_back(one_ray);

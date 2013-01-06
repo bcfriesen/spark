@@ -39,7 +39,7 @@ double CharNCI::get_p()
     return m_p;
 }
 
-int CharNCI::get_tangent_layer_index()
+unsigned int CharNCI::get_tangent_layer_index()
 {
     return m_tangent_layer_index;
 }
@@ -87,7 +87,6 @@ void CharNCI_B::operator() (const vector<double>& x,
                               vector<double>&       dsdr,
                               const double          r)
 {
-    const double s        = x.at(0);
     const double gamma    = gamma_ltz(m_grid->beta(r));
     const double beta     = m_grid->beta(r);
     const double mu_E     = sign_of_mu()*sqrt(1.0 - (pow(m_p, 2) / pow(r, 2))) / r;

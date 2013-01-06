@@ -68,7 +68,7 @@ GridClass::GridClass(char* yaml_file)
     infile.close();
 }
 
-int GridClass::get_num_layers() const
+unsigned int GridClass::get_num_layers() const
 {
     return rad_vel.size();
 }
@@ -78,12 +78,12 @@ int GridClass::get_num_core_intersect_rays() const
     return num_core_intersect_rays;
 }
 
-double GridClass::rad(int layer) const
+double GridClass::rad(unsigned int layer) const
 {
     return rad_vel.at(layer).first;
 }
 
-double GridClass::vel(int layer) const
+double GridClass::vel(unsigned int layer) const
 {
     return rad_vel.at(layer).second;
 }
@@ -93,7 +93,7 @@ double GridClass::vel(double rad) const
     return interpolate(rad_vel, rad);
 }
 
-double GridClass::beta(int layer) const
+double GridClass::beta(unsigned int layer) const
 {
     return rad_vel.at(layer).second / GSL_CONST_CGSM_SPEED_OF_LIGHT;
 }
@@ -103,7 +103,7 @@ double GridClass::beta(double rad) const
     return vel(rad) / GSL_CONST_CGSM_SPEED_OF_LIGHT;
 }
 
-double GridClass::dbeta_dr(int layer) const
+double GridClass::dbeta_dr(unsigned int layer) const
 {
     /* Forward derivative at the back. */
     if (layer == 0)
