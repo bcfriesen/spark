@@ -1,8 +1,8 @@
 #ifndef CALC_RAYS_H
 #define CALC_RAYS_H
 
-#include <grid.h>
-#include <characteristic.h>
+#include <grid.hpp>
+#include <characteristic.hpp>
 #include <boost/numeric/odeint.hpp>
 
 // Functions with template parameters must be defined in the header file - you

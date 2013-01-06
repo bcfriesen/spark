@@ -1,5 +1,5 @@
 #include <boost/lexical_cast.hpp>
-#include <my_exceptions.h>
+#include <my_exceptions.hpp>
 
 using namespace std;
 

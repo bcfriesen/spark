@@ -3,11 +3,11 @@
 #include <iomanip>
 #include <cmath>
 #include <gsl/gsl_const_cgsm.h>
-#include <grid.h>
-#include <my_exceptions.h>
-#include <characteristic.h>
-#include <calc_rays.h>
-#include <misc.h>
+#include <grid.hpp>
+#include <my_exceptions.hpp>
+#include <characteristic.hpp>
+#include <calc_rays.hpp>
+#include <misc.hpp>
 
 using namespace std;
 

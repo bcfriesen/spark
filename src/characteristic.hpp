@@ -2,7 +2,7 @@
 #define CHARACTERISTIC_H
 
 #include <vector>
-#include <grid.h>
+#include <grid.hpp>
 
 /** \brief Characteristic ray class.
  *

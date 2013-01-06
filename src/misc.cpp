@@ -1,7 +1,7 @@
 #include <limits>
-#include <math.h>
-#include <misc.h>
-#include <my_exceptions.h>
+#include <cmath>
+#include <misc.hpp>
+#include <my_exceptions.hpp>
 
 using namespace std;
 

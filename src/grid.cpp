@@ -2,9 +2,9 @@
 #include <algorithm>
 #include <yaml-cpp/yaml.h>
 #include <gsl/gsl_const_cgsm.h>
-#include <grid.h>
-#include <my_exceptions.h>
-#include <misc.h>
+#include <grid.hpp>
+#include <my_exceptions.hpp>
+#include <misc.hpp>
 
 using namespace std;
 

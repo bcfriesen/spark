@@ -5,8 +5,8 @@
 #include <vector>
 #include <H5Cpp.h>
 #include <boost/lexical_cast.hpp>
-#include <my_exceptions.h>
-#include <make_linelist_hdf.h>
+#include <my_exceptions.hpp>
+#include <make_linelist_hdf.hpp>
 
 using namespace std;
 

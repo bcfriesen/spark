@@ -1,7 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <characteristic.h>
+#include <misc.hpp>
+#include <characteristic.hpp>
 
 using namespace std;
 
