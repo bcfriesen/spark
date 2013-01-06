@@ -6,6 +6,8 @@
 class ParamsClass
 {
     public:
+        ParamsClass();
+
         std::string layer_file;
         std::string output_file;
         unsigned int num_core_intersect_rays;
