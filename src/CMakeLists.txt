@@ -1,6 +1,7 @@
 SET (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Werror")
 
 SET (SPARK_SOURCES
+     calc_rays.cpp
      characteristic.cpp
      grid.cpp
      main.cpp
