@@ -13,6 +13,7 @@ INCLUDE_DIRECTORIES (
     $ENV{ODEINT_DIR}
     $ENV{BOOST_DIR}
     $ENV{GSL_DIR}/include
+    $ENV{HDF_DIR}/include
     )
 
 LINK_DIRECTORIES (
