@@ -6,6 +6,7 @@ SET (SPARK_SOURCES
      main.cpp
      misc.cpp
      my_exceptions.cpp
+     read_params.cpp
     )
 
 INCLUDE_DIRECTORIES (

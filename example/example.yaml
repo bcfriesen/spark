@@ -1,3 +1,5 @@
 # Sample YAML file.
 layer_file: "../example/layer.pah_std_d3.3.dat"
 num_core_intersect_rays: 10
+
+output_file: "derp.out"

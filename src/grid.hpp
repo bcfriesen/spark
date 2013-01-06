@@ -2,6 +2,7 @@
 #define GRID_H
 
 #include <vector>
+#include <string>
 
 /** \brief Contains most grid-based variables and functions. */
 class GridClass
@@ -9,7 +10,7 @@ class GridClass
     public:
         /** Reads the radius/velocity grid data from the layer file and stores
          *  it in member variables. */
-        GridClass(char* yaml_file);
+        GridClass(std::string layer_file);
         /** Get number of layers in layer file. */
         unsigned int get_num_layers() const;
         /** Get number of core-intersecting rays (this is a knob). */

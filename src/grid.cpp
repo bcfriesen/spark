@@ -1,6 +1,7 @@
 #include <fstream>
+#include <sstream>
+#include <string>
 #include <algorithm>
-#include <yaml-cpp/yaml.h>
 #include <gsl/gsl_const_cgsm.h>
 #include <grid.hpp>
 #include <my_exceptions.hpp>
@@ -8,32 +9,9 @@
 
 using namespace std;
 
-GridClass::GridClass(char* yaml_file)
+GridClass::GridClass(string layer_file)
 {
-    /* YAML file has all the file locations, parameters, etc. */
     ifstream infile;
-    infile.open(yaml_file);
-
-    if (!infile) throw FileNotFound(yaml_file);
-
-    string layer_file;
-
-    try
-    {
-        YAML::Parser parser(infile);
-        YAML::Node doc;
-        parser.GetNextDocument(doc);
-        // we read PHOENIX-style layer files
-        doc["layer_file"] >> layer_file;
-        doc["num_core_intersect_rays"] >> num_core_intersect_rays;
-    }
-    catch(YAML::ParserException& e)
-    {
-        cout << e.what() << endl;
-    }
-
-    infile.close();
-
     infile.open(layer_file.c_str());
 
     if (!infile) throw FileNotFound(layer_file);
@@ -42,13 +20,13 @@ GridClass::GridClass(char* yaml_file)
     double x1, x2, x3, x4, x5;
     getline(infile, oneline); // first line has # of layers
     istringstream is(oneline);
-    int nlayer;
+    unsigned int nlayer;
     is >> x1 >> nlayer; // don't need first number
 
     pair<double, double> rv_one; // radius & velocity of one layer
 
     const double cm2km = 1.0e-5; // convert cm to km
-    for (int i = 0; i < nlayer; i++)
+    for (unsigned int i = 0; i < nlayer; i++)
     {
         getline(infile, oneline);
         istringstream is(oneline);

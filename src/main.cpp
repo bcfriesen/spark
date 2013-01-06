@@ -3,11 +3,12 @@
 #include <iomanip>
 #include <cmath>
 #include <gsl/gsl_const_cgsm.h>
-#include <grid.hpp>
 #include <my_exceptions.hpp>
 #include <characteristic.hpp>
 #include <calc_rays.hpp>
 #include <misc.hpp>
+#include <params.hpp>
+#include <read_params.hpp>
 
 using namespace std;
 
@@ -19,9 +20,16 @@ int main(int argc, char* argv[])
     /* User must supply YAML file as argument */
     if (argc != 2) throw WrongCLIUsage();
 
-    /* Grid constructor reads YAML file. */
+    /* Create data structre to hold all runtime parameters. */
+    ParamsClass params;
+
+    /* Read data in YAML file. */
+    string yaml_file = string(argv[1]);
+    read_params(yaml_file, &params);
+
+    /* Now read grid data. */
     cout << "Reading in grid variables..." << endl << endl;
-    GridClass grid(argv[1]);
+    GridClass grid(params.layer_file);
 
     /* Sanity check: velocity field must be monotonic. */
     for (unsigned int i = 0; i < grid.get_num_layers()-1; i++)
