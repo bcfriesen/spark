@@ -7,3 +7,13 @@ Dependencies:
     - yaml-cpp
     - odeint-v2 (currently part of the Boost sandbox)
     - CMake
+    - HDF5
+
+To avoid all the headaches associated with letting this code try to find those
+libraries/headers automatically, you must also set the following environment
+variables:
+    - YAML_DIR
+    - ODEINT_DIR
+    - BOOST_DIR
+    - GSL_DIR
+    - HDF_DIR
