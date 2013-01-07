@@ -68,11 +68,11 @@ void calc_rays(const GridClass &grid, std::vector<CharNCI_B> &ray_vector)
         {
             if (i == it_char->get_tangent_layer_index())
             {
-                boost::numeric::odeint::integrate(*it_char, s_of_r, (1.0 + 1.0e-10)*grid.rad(i), grid.rad(i+1), 1.0e-5*grid.rad(i));
+                boost::numeric::odeint::integrate(*it_char, s_of_r, (1.0 + 1.0e-10)*grid.rad(i), grid.rad(i+1), -1.0e-5*grid.rad(i));
             }
             else
             {
-                boost::numeric::odeint::integrate(*it_char, s_of_r, grid.rad(i), grid.rad(i+1), 1.0e-5*grid.rad(i));
+                boost::numeric::odeint::integrate(*it_char, s_of_r, grid.rad(i), grid.rad(i+1), -1.0e-5*grid.rad(i));
             }
             // TODO: fix the indices on s(r_i) in the characteristic class so
             // they match the indices on the vector of radial points {r_i} in

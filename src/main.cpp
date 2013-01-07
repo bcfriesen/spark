@@ -81,12 +81,32 @@ int main(int argc, char* argv[])
     cout << "Integrating forward characteristics..." << endl << endl;
     calc_rays(grid, char_ray_front);
 
+    /* Integrate characteristic ODEs backward from s=0. */
+    cout << "Integrating backward characteristics..." << endl << endl;
+    calc_rays(grid, char_ray_back);
+
     /* Write out results. */
     cout << "Saving characteristic data results..." << endl << endl;
+
+    myfile << "FORWARD CHARACTERISTICS" << endl;
     for (vector<CharNCI_F>::iterator it_char = char_ray_front.begin(); it_char != char_ray_front.end(); ++it_char)
     {
         for (vector< pair<double, double> >::const_iterator it_val = it_char->s_mu_vec_begin(); it_val != it_char->s_mu_vec_end(); ++it_val)
         {
+            // first: s(r); second: mu(r)
+            myfile << " " << it_val->first << " " << it_val->second << endl;
+        }
+        myfile << endl;
+    }
+
+    myfile << endl << endl;
+
+    myfile << "BACKWARD CHARACTERISTICS" << endl;
+    for (vector<CharNCI_B>::iterator it_char = char_ray_back.begin(); it_char != char_ray_back.end(); ++it_char)
+    {
+        for (vector< pair<double, double> >::const_iterator it_val = it_char->s_mu_vec_begin(); it_val != it_char->s_mu_vec_end(); ++it_val)
+        {
+            // first: s(r); second: mu(r)
             myfile << " " << it_val->first << " " << it_val->second << endl;
         }
         myfile << endl;
