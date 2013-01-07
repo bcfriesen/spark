@@ -53,9 +53,7 @@ int main(int argc, char* argv[])
         }
     }
 
-    ofstream myfile;
-    // TODO: make output file name an option in the YAML file
-    myfile.open("derp.out");
+    ofstream myfile(params.output_file.c_str());
     myfile.setf(ios::scientific);
 
     /* Split up characteristics according to which half of the ejecta they
