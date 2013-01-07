@@ -2,16 +2,25 @@ Welcome to spark, a stupid 1-D ALI code for doing radiative transfer.
 
 Dependencies:
     - C++ compiler
+        - I've used gcc 4.7.2, clang 3.0, and Intel 12.1.
     - Fortran compiler
+        - I've used gfortran 4.7.2 and Intel 12.1.
     - Boost
+        - I've used > 1.49.0.
     - yaml-cpp
-    - odeint-v2 (currently part of the Boost sandbox)
+        - The API changed in 0.5.0; currently spark only works with the old API
+          in 0.3.0.
+    - odeint-v2
+        - This project has been accepted into the Boost library but still has
+          not been included as of Boost 1.52.0.
     - CMake
+        - I've used > 2.8.
     - HDF5
+        - I've used > 1.8.9.
 
 To avoid all the headaches associated with letting this code try to find those
-libraries/headers automatically, you must also set the following environment
-variables:
+libraries/headers on your machine automatically, you must also set the following
+environment variables:
     - YAML_DIR
     - ODEINT_DIR
     - BOOST_DIR
