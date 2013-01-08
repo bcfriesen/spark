@@ -79,11 +79,11 @@ int main(int argc, char* argv[])
 
     /* Integrate characteristic ODEs forward from s=0. */
     cout << "Integrating forward characteristics..." << endl << endl;
-    calc_rays(grid, char_ray_front);
+    calc_rays(&grid, char_ray_front);
 
     /* Integrate characteristic ODEs backward from s=0. */
     cout << "Integrating backward characteristics..." << endl << endl;
-    calc_rays(grid, char_ray_back);
+    calc_rays(&grid, char_ray_back);
 
     /* Write out results. */
     cout << "Saving characteristic data results..." << endl << endl;

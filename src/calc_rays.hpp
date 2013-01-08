@@ -10,13 +10,13 @@
  * Calculate \f$ s(r) \f$ and \f$ mu(r) \f$ by integrating the \f$ d/dr \f$ ODE
  * derived in Hauschildt (1992).
  * */
-void calc_rays(const GridClass &grid, std::vector<CharNCI_F> &ray_vector);
+void calc_rays(GridClass* grid, std::vector<CharNCI_F> &ray_vector);
 
 /** \brief Integrate "back" characteristic ray ODEs.
  *
  * Calculate \f$ s(r) \f$ and \f$ mu(r) \f$ by integrating the \f$ d/dr \f$ ODE
  * derived in Hauschildt (1992).
  * */
-void calc_rays(const GridClass &grid, std::vector<CharNCI_B> &ray_vector);
+void calc_rays(GridClass* grid, std::vector<CharNCI_B> &ray_vector);
 
 #endif // CALC_RAYS_H
