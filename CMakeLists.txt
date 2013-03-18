@@ -1,7 +1,6 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 PROJECT (spark)
 ENABLE_LANGUAGE (CXX)
-ENABLE_LANGUAGE (Fortran)
 
 #----------------------------BEGIN ADD EXTRA MODULES----------------------------
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable, which

@@ -26,13 +26,11 @@ LINK_DIRECTORIES (
     $ENV{HDF_DIR}/lib
     )
 
-ADD_SUBDIRECTORY (EOS)
 ADD_SUBDIRECTORY (utils)
 
 ADD_EXECUTABLE (${PROJECT_NAME} ${SPARK_SOURCES})
 TARGET_LINK_LIBRARIES (${PROJECT_NAME}
                         yaml-cpp
-                        EOS
                         make_linelist
                         hdf5
                         hdf5_cpp
