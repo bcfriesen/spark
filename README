@@ -6,13 +6,11 @@ Dependencies:
     - Fortran compiler
         - I've used gfortran 4.7.2 and Intel 12.1.
     - Boost
-        - I've used > 1.49.0.
+        - You need >= 1.53.0, because this was the version that incorporated
+          the Odeint project.
     - yaml-cpp
         - The API changed in 0.5.0; currently spark only works with the old API
           in 0.3.0.
-    - odeint-v2
-        - This project has been accepted into the Boost library but still has
-          not been included as of Boost 1.52.0.
     - CMake
         - I've used > 2.8.
     - HDF5
@@ -22,7 +20,6 @@ To avoid all the headaches associated with letting this code try to find those
 libraries/headers on your machine automatically, you must also set the following
 environment variables:
     - YAML_DIR
-    - ODEINT_DIR
     - BOOST_DIR
     - GSL_DIR
     - HDF_DIR
