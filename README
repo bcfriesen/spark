@@ -6,9 +6,6 @@ Dependencies:
     - Boost
         - You need >= 1.53.0, because this was the version that incorporated
           the Odeint project.
-    - yaml-cpp
-        - The API changed in 0.5.0; currently spark only works with the old API
-          in 0.3.0.
     - CMake
         - I've used > 2.8.
     - HDF5
@@ -17,7 +14,6 @@ Dependencies:
 To avoid all the headaches associated with letting this code try to find those
 libraries/headers on your machine automatically, you must also set the following
 environment variables:
-    - YAML_DIR
     - BOOST_DIR
     - GSL_DIR
     - HDF_DIR
