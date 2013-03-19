@@ -1,2 +1,6 @@
 build
 *.dat
+*.o
+*.in
+.deps
+*.a
