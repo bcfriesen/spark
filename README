@@ -9,5 +9,8 @@ Dependencies:
     - Autotools
         - autoconf >= 2.69
         - automake >= 1.11
-    - HDF5
-        - I've used > 1.8.9.
+
+Optional dependencies:
+    - HDF5 > 1.8.9
+        - The line list construction utility requires HDF5, but spark itself
+          can both compile and run without it.
