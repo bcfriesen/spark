@@ -7,20 +7,24 @@ AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([src/config.h])
 
 # Checks for programs.
-AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_RANLIB
 
 # Switch autoconf checks to C++ mode.
-AC_LANG(C++)
+AC_LANG([C++])
+
+# Check for Boost
+AC_ARG_WITH([boost],
+            [AS_HELP_STRING([--with-boost=<dir>],
+                            [Specify top-level directory containing Boost library.])])
+AM_CONDITIONAL(USE_BOOST, [test ! "x$with_boost" = x])
+AC_SUBST(BOOST_DIR, [$with_boost])
 
 # Checks for libraries.
 
-# Checks for header files.
+# Checks for cmath header
 AC_CHECK_HEADERS([cmath], [],
                  [AC_MSG_ERROR(cmath header required!)])
-AC_CHECK_HEADERS([boost/numeric/odeint.hpp], [],
-                 AC_MSG_ERROR(odeint.hpp required! (in Boost version >= 1.53.0)))
 
 # Checks for typedefs, structures, and compiler characteristics.
 

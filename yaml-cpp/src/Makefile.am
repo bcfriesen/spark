@@ -1,4 +1,4 @@
-AM_CPPFLAGS = ${CPPFLAGS} -I../include
+AM_CPPFLAGS = ${CPPFLAGS} -I${top_srcdir}/yaml-cpp/include -I${BOOST_DIR}
 noinst_LIBRARIES = libyamlcpp.a
 libyamlcpp_a_SOURCES = binary.cpp \
 					 convert.cpp \
