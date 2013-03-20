@@ -6,8 +6,9 @@ Dependencies:
     - Boost
         - You need >= 1.53.0, because this was the version that incorporated
           the Odeint project.
-    - CMake
-        - I've used > 2.8.
+    - Autotools
+        - autoconf >= 2.69
+        - automake >= 1.11
     - HDF5
         - I've used > 1.8.9.
 
