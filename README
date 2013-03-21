@@ -14,3 +14,23 @@ Optional dependencies:
     - HDF5 > 1.8.9
         - The line list construction utility requires HDF5, but spark itself
           can both compile and run without it.
+
+
+Compiling instructions:
+
+This code uses the GNU Autotools build system, so you must have reasonably
+modern versions of autoconf, automake, etc.
+
+If your compiler doesn't automatically know where your Boost library headers
+are, you need to tell 'configure' where they are using
+
+    ./configure --with-boost=<dir>
+
+where '<dir>' is the top level of your Boost library, i.e., the name of the
+folder where you unpacked the tarball. The parts of Boost that this code uses
+are entirely header-based, so you don't need to compile Boost at all - just
+unpack the headers, tell the compiler where they are, and off you go. Boost is
+a very cutting-edge library and is quite demanding on your C++ compiler
+(although the Boost developers go to great lengths to make it as widely
+compatible as possible). This means you probably can't run this code on your
+15-year-old IBM RS/6000. Sorry.
