@@ -10,7 +10,7 @@ void read_params(string yaml_file, ParamsClass* params)
 {
     try
     {
-        YAML::Node doc(yaml_file.c_str());
+        YAML::Node doc = YAML::LoadFile(yaml_file.c_str());
         // we read PHOENIX-style layer files
         params->layer_file = doc["layer_file"].as<std::string>();
         // read # of core-intersecting rays (this is a knob)
