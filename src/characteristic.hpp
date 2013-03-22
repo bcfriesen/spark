@@ -22,9 +22,6 @@ class Characteristic
         double get_s(int i);
         /** Return \f$ \mu(r_i) \f$. */
         double get_mu(int i);
-        /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
-         * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
-        virtual double sign_of_mu() = 0;
         /** Iterator lower bound for the vector of \f$ s(r_i) \f$ and \f$
          * mu(r_i) \f$ pairs. */
         std::vector< std::pair<double, double> >::const_iterator s_mu_vec_begin();
@@ -65,6 +62,8 @@ class CharNCI_F: public CharNCI
 {
     public:
         CharNCI_F(GridClass& grid, int i);
+        /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
+         * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
         double sign_of_mu();
         /** This is the function called by odeint. */
         void operator() (const std::vector<double>& x,
@@ -78,6 +77,8 @@ class CharNCI_B: public CharNCI
 {
     public:
         CharNCI_B(GridClass& grid, int i);
+        /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
+         * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
         double sign_of_mu();
         /** This is the function called by odeint. */
         void operator() (const std::vector<double>& x,
@@ -101,6 +102,8 @@ class CharCI_F: public CharCI
 {
     public:
         CharCI_F(GridClass& grid, double p);
+        /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
+         * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
         double sign_of_mu();
         /** This is the function called by odeint. */
         void operator() (const std::vector<double>& x,
@@ -114,6 +117,8 @@ class CharCI_B: public CharCI
 {
     public:
         CharCI_B(GridClass& grid, double p);
+        /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
+         * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
         double sign_of_mu();
         /** This is the function called by odeint. */
         void operator() (const std::vector<double>& x,
