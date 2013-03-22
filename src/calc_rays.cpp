@@ -2,15 +2,16 @@
 #include <characteristic.hpp>
 #include <boost/numeric/odeint.hpp>
 
-void calc_rays(GridClass* grid, std::vector<CharNCI_F>& ray_vector)
+using namespace std;
+void calc_rays(GridClass* grid, vector<CharNCI_F>& ray_vector)
 {
     // Iterates over vector of characteristic rays.
-    std::vector<CharNCI_F>::iterator it_char;
+    vector<CharNCI_F>::iterator it_char;
 
     /* s coordinate for ds/dr equation. Even for a single ODE, we must supply
      * the variable as a vector because odeint uses iterators to keep track of
      * variables. */
-    std::vector<double> s_of_r(1);
+    vector<double> s_of_r(1);
 
     // I read somewhere on StackOverflow that it's faster to use ++blah instead
     // of blah++, especially for iterators which track vectors of complicated
@@ -45,15 +46,15 @@ void calc_rays(GridClass* grid, std::vector<CharNCI_F>& ray_vector)
     }
 }
 
-void calc_rays(GridClass* grid, std::vector<CharNCI_B>& ray_vector)
+void calc_rays(GridClass* grid, vector<CharNCI_B>& ray_vector)
 {
     // Iterates over vector of characteristic rays.
-    std::vector<CharNCI_B>::iterator it_char;
+    vector<CharNCI_B>::iterator it_char;
 
     /* s coordinate for ds/dr equation. Even for a single ODE, we must supply
      * the variable as a vector because odeint uses iterators to keep track of
      * variables. */
-    std::vector<double> s_of_r(1);
+    vector<double> s_of_r(1);
 
     // I read somewhere on StackOverflow that it's faster to use ++blah instead
     // of blah++, especially for iterators which track vectors of complicated
