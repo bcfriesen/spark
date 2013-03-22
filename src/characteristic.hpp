@@ -22,6 +22,8 @@ class Characteristic
         double get_s(int i) const;
         /** Return \f$ \mu(r_i) \f$. */
         double get_mu(int i) const;
+        /** Return total number of points along ray. */
+        unsigned int get_num_ray_pts() const;
         /** Iterator lower bound for the vector of \f$ s(r_i) \f$ and \f$
          * mu(r_i) \f$ pairs. */
         std::vector< std::pair<double, double> >::const_iterator s_mu_vec_begin() const;

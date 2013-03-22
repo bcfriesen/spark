@@ -28,6 +28,11 @@ double Characteristic::get_mu(int i) const
     return m_s_mu.at(i).second;
 }
 
+unsigned int Characteristic::get_num_ray_pts() const
+{
+    return m_s_mu.size();
+}
+
 vector< pair<double, double> >::const_iterator Characteristic::s_mu_vec_begin() const
 {
     return m_s_mu.begin();
