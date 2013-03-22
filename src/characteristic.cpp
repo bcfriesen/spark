@@ -18,22 +18,22 @@ void Characteristic::push_s_mu(double s, double mu)
     m_s_mu.push_back(one_pair);
 }
 
-double Characteristic::get_s(int i)
+double Characteristic::get_s(int i) const
 {
     return m_s_mu.at(i).first;
 }
 
-double Characteristic::get_mu(int i)
+double Characteristic::get_mu(int i) const
 {
     return m_s_mu.at(i).second;
 }
 
-vector< pair<double, double> >::const_iterator Characteristic::s_mu_vec_begin()
+vector< pair<double, double> >::const_iterator Characteristic::s_mu_vec_begin() const
 {
     return m_s_mu.begin();
 }
 
-vector< pair<double, double> >::const_iterator Characteristic::s_mu_vec_end()
+vector< pair<double, double> >::const_iterator Characteristic::s_mu_vec_end() const
 {
     return m_s_mu.end();
 }
@@ -44,7 +44,7 @@ CharNCI::CharNCI(GridClass& grid, int i)
       m_tangent_layer_index(i)
 {}
 
-double CharNCI::get_p()
+double CharNCI::get_p() const
 {
     return m_p;
 }
@@ -62,12 +62,12 @@ CharNCI_B::CharNCI_B(GridClass& grid, int i)
     : CharNCI(grid, i)
 {}
 
-double CharNCI_F::sign_of_mu()
+double CharNCI_F::sign_of_mu() const
 {
     return +1.0;
 }
 
-double CharNCI_B::sign_of_mu()
+double CharNCI_B::sign_of_mu() const
 {
     return -1.0;
 }

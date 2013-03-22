@@ -19,14 +19,14 @@ class Characteristic
          * from one radial point to the next. */
         void push_s_mu(double s, double mu);
         /** Return \f$ s(r_i) \f$. */
-        double get_s(int i);
+        double get_s(int i) const;
         /** Return \f$ \mu(r_i) \f$. */
-        double get_mu(int i);
+        double get_mu(int i) const;
         /** Iterator lower bound for the vector of \f$ s(r_i) \f$ and \f$
          * mu(r_i) \f$ pairs. */
-        std::vector< std::pair<double, double> >::const_iterator s_mu_vec_begin();
+        std::vector< std::pair<double, double> >::const_iterator s_mu_vec_begin() const;
         /** Iterator upper bound for the \f$ s(r_i) \f$ vector. */
-        std::vector< std::pair<double, double> >::const_iterator s_mu_vec_end();
+        std::vector< std::pair<double, double> >::const_iterator s_mu_vec_end() const;
 
     protected:
         /** Path length and direction cosine along ray (both functions of \f$ r
@@ -45,7 +45,7 @@ class CharNCI: public Characteristic
         /** Initialize a ray tangent to layer \f$ i \f$ at \f$ s=0 \f$. */
         CharNCI(GridClass& grid, int i);
         /** Return the impact parameter for this characteristic ray at \f$ s=0 \f$. */
-        double get_p();
+        double get_p() const;
         /** Return index of tangent layer. */
         unsigned int get_tangent_layer_index() const;
 
@@ -64,7 +64,7 @@ class CharNCI_F: public CharNCI
         CharNCI_F(GridClass& grid, int i);
         /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
          * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
-        double sign_of_mu();
+        double sign_of_mu() const;
         /** This is the function called by odeint. */
         void operator() (const std::vector<double>& x,
                          std::vector<double>&       dsdr,
@@ -79,7 +79,7 @@ class CharNCI_B: public CharNCI
         CharNCI_B(GridClass& grid, int i);
         /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
          * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
-        double sign_of_mu();
+        double sign_of_mu() const;
         /** This is the function called by odeint. */
         void operator() (const std::vector<double>& x,
                          std::vector<double>&       dsdr,
@@ -104,7 +104,7 @@ class CharCI_F: public CharCI
         CharCI_F(GridClass& grid, double p);
         /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
          * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
-        double sign_of_mu();
+        double sign_of_mu() const;
         /** This is the function called by odeint. */
         void operator() (const std::vector<double>& x,
                          std::vector<double>&       dsdr,
@@ -119,7 +119,7 @@ class CharCI_B: public CharCI
         CharCI_B(GridClass& grid, double p);
         /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
          * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
-        double sign_of_mu();
+        double sign_of_mu() const;
         /** This is the function called by odeint. */
         void operator() (const std::vector<double>& x,
                          std::vector<double>&       dsdr,
