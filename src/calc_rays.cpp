@@ -5,9 +5,6 @@
 using namespace std;
 void calc_rays(GridClass* grid, vector<CharNCI_F>& ray_vector)
 {
-    // Iterates over vector of characteristic rays.
-    vector<CharNCI_F>::iterator it_char;
-
     /* s coordinate for ds/dr equation. Even for a single ODE, we must supply
      * the variable as a vector because odeint uses iterators to keep track of
      * variables. */
@@ -17,7 +14,7 @@ void calc_rays(GridClass* grid, vector<CharNCI_F>& ray_vector)
     // of blah++, especially for iterators which track vectors of complicated
     // classes, because the latter requires a call to the copy constructor
     // whereas the former does not.
-    for (it_char = ray_vector.begin(); it_char != ray_vector.end(); ++it_char)
+    for (vector<CharNCI_F>::iterator it_char = ray_vector.begin(); it_char != ray_vector.end(); ++it_char)
     {
         /* Integrate ds/dr a la Hauschildt (1992). */
         /* By definition s = 0 at the tangent point. */
@@ -48,9 +45,6 @@ void calc_rays(GridClass* grid, vector<CharNCI_F>& ray_vector)
 
 void calc_rays(GridClass* grid, vector<CharNCI_B>& ray_vector)
 {
-    // Iterates over vector of characteristic rays.
-    vector<CharNCI_B>::iterator it_char;
-
     /* s coordinate for ds/dr equation. Even for a single ODE, we must supply
      * the variable as a vector because odeint uses iterators to keep track of
      * variables. */
@@ -60,7 +54,7 @@ void calc_rays(GridClass* grid, vector<CharNCI_B>& ray_vector)
     // of blah++, especially for iterators which track vectors of complicated
     // classes, because the latter requires a call to the copy constructor
     // whereas the former does not.
-    for (it_char = ray_vector.begin(); it_char != ray_vector.end(); ++it_char)
+    for (vector<CharNCI_B>::iterator it_char = ray_vector.begin(); it_char != ray_vector.end(); ++it_char)
     {
         /* Integrate ds/dr a la Hauschildt (1992). */
         /* By definition s = 0 at the tangent point. */
