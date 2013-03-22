@@ -50,7 +50,7 @@ class CharNCI: public Characteristic
         /** Return the impact parameter for this characteristic ray at \f$ s=0 \f$. */
         double get_p();
         /** Return index of tangent layer. */
-        unsigned int get_tangent_layer_index();
+        unsigned int get_tangent_layer_index() const;
 
     protected:
         /** Impact parameter at \f$ s=0 \f$. */

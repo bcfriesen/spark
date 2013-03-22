@@ -49,7 +49,7 @@ double CharNCI::get_p()
     return m_p;
 }
 
-unsigned int CharNCI::get_tangent_layer_index()
+unsigned int CharNCI::get_tangent_layer_index() const
 {
     return m_tangent_layer_index;
 }
