@@ -12,95 +12,59 @@ Characteristic::Characteristic(GridClass& grid)
 
 void Characteristic::push_s_mu(double s, double mu)
 {
-    pair<double, double> one_pair;
-    one_pair.first = s;
-    one_pair.second = mu;
-    m_s_mu.push_back(one_pair);
+    m_s.push_back(s);
+    m_mu.push_back(mu);
 }
 
-double Characteristic::get_s(int i) const
+double Characteristic::get_s(int k) const
 {
-    return m_s_mu.at(i).first;
+    return m_s.at(k);
 }
 
-double Characteristic::get_mu(int i) const
+double Characteristic::get_mu(int k) const
 {
-    return m_s_mu.at(i).second;
+    return m_mu.at(k);
 }
 
 unsigned int Characteristic::get_num_ray_pts() const
 {
-    return m_s_mu.size();
+    /* The vector of s points and the vector of mu points should be the same
+     * size, so just pick one. */
+    return m_s.size();
 }
 
-vector< pair<double, double> >::const_iterator Characteristic::s_mu_vec_begin() const
+vector<double>::const_iterator Characteristic::s_vec_begin() const
 {
-    return m_s_mu.begin();
+    return m_s.begin();
 }
 
-vector< pair<double, double> >::const_iterator Characteristic::s_mu_vec_end() const
+vector<double>::const_iterator Characteristic::s_vec_end() const
 {
-    return m_s_mu.end();
+    return m_s.end();
 }
 
-CharNCI::CharNCI(GridClass& grid, int i)
+vector<double>::const_iterator Characteristic::mu_vec_begin() const
+{
+    return m_mu.begin();
+}
+
+vector<double>::const_iterator Characteristic::mu_vec_end() const
+{
+    return m_mu.end();
+}
+
+TangentRay::TangentRay(GridClass& grid, int i)
     : Characteristic(grid),
       m_p(grid.rad(i)),
       m_tangent_layer_index(i)
 {}
 
-double CharNCI::get_p() const
+double TangentRay::get_p() const
 {
     return m_p;
 }
 
-unsigned int CharNCI::get_tangent_layer_index() const
+unsigned int TangentRay::tangent_layer_index() const
 {
     return m_tangent_layer_index;
 }
-
-CharNCI_F::CharNCI_F(GridClass& grid, int i)
-    : CharNCI(grid, i)
-{}
-
-CharNCI_B::CharNCI_B(GridClass& grid, int i)
-    : CharNCI(grid, i)
-{}
-
-double CharNCI_F::sign_of_mu() const
-{
-    return +1.0;
-}
-
-double CharNCI_B::sign_of_mu() const
-{
-    return -1.0;
-}
-
-void CharNCI_F::operator() (const vector<double>& s,
-                            vector<double>&       dsdr,
-                            const double          r)
-{
-    const double gamma    = gamma_ltz(m_grid->beta(r));
-    const double beta     = m_grid->beta(r);
-    const double mu_E     = sign_of_mu() * sqrt(1.0 - (pow(m_p, 2) / pow(r, 2)));
-    const double mu       = (mu_E - beta) / (1.0 - beta * mu_E);
-
-    /* ds/dr, which is just the inverse of dr/ds (Eq. 5a of Hauschildt (1992)) */
-    dsdr.at(0) = 1.0 / (gamma * (mu + beta));
-}
-
-void CharNCI_B::operator() (const vector<double>& s,
-                            vector<double>&       dsdr,
-                            const double          r)
-{
-    const double gamma    = gamma_ltz(m_grid->beta(r));
-    const double beta     = m_grid->beta(r);
-    const double mu_E     = sign_of_mu() * sqrt(1.0 - (pow(m_p, 2) / pow(r, 2)));
-    const double mu       = (mu_E - beta) / (1.0 - beta * mu_E);
-
-    /* ds/dr, which is just the inverse of dr/ds (Eq. 5a of Hauschildt (1992)) */
-    dsdr.at(0) = 1.0 / (gamma * (mu + beta));
-}
-
-// TODO: implement () operator for odeint on core-intersecting rays
