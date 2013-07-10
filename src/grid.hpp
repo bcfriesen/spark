@@ -42,8 +42,21 @@ class GridClass
         /** Radius and velocity of each layer. Since we're assuming homologous
          * expansion, these are always paired together. */
         std::vector< std::pair<double, double> > rad_vel;
+
+        /** Reversed radius/velocity pairs. The interpolator needs the ordinate
+         * value to be monotonically increasing, but it's way more convenient
+         * to track characteristic rays by starting at the outside of the
+         * ejecta and moving inward, i.e., as the "index" of the rays
+         * increases, the radius monotonically decreases. Instead of reversing
+         * the vector of radius/velocity pairs every time we need to
+         * interpolate, I'll just store a reversed copy here. This is a
+         * TERRIBLE fix, but I haven't figured out a better way to do it. */
+         std::vector< std::pair<double, double> > rad_vel_reversed;
+
+        /* TODO: figure out a better way to deal with the
+         * monotonically-increasing requirement of the interpolator. */
+
         /** Number of core-intersecting rays. */
-        int num_core_intersect_rays;
-};
+        int num_core_intersect_rays; };
 
 #endif

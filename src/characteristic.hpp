@@ -2,130 +2,99 @@
 #define CHARACTERISTIC_H
 
 #include <vector>
+
 #include <grid.hpp>
+
+/** \brief Characteristic ray data structure.
+ *
+ * Holds data calculated along rays (e.g., \f$ s, mu, \tau \f$).
+ *
+ * */
+struct CharacteristicData {
+    public:
+        /** geometric length - defined as \f$ s=0 \f$ at the back of the ray */
+        double s;
+        /** direction cosine (measured in observer's frame) */
+        double mu;
+        /** optical depth ALONG THE RAY - defined as \f$ \tau=0 \f$ at the
+         * front of the ray */
+        double tau;
+};
+
 
 /** \brief Characteristic ray class.
  *
  * Holds values of \f$ s(r) \f$ and \f$ \mu(r) \f$ for each ray calculated by
- * integrating the characteristic ray ODEs in Mihalas (1980).
+ * using Bin Chen's RT formalism in Chen et al. (2007).
+ *
  * */
-
 class Characteristic
 {
     public:
         /** Constructor requires a grid, otherwise our characteristics have no structure. */
         Characteristic(GridClass& grid);
-        /** Save resulting values of \f$ s \f$ and \f$ \mu \f$ as we integrate
-         * from one radial point to the next. */
-        void push_s_mu(double s, double mu);
-        /** Return \f$ s(r_i) \f$. */
-        double get_s(int i) const;
-        /** Return \f$ \mu(r_i) \f$. */
-        double get_mu(int i) const;
+        /** Save value of the geometric path length \f$ s \f$ at point \f$ k
+         * \f$ along the ray. */
+        void set_s(double s, unsigned int k);
+        /** Save value of the direction cosine \f$ \mu \f$ at point \f$ k \f$
+         * along the ray. */
+        void set_mu(double mu, unsigned int k);
+        /** Get the geometric coordinate \f$ s \f$ at point \f$ k \f$ along ray
+         * \f$ i \f$. */
+        double get_s(int k) const;
+        /** Get the direction cosine \f$ \mu \f$ at point \f$ k \f$ along ray
+         * \f$ i \f$. */
+        double get_mu(int k) const;
         /** Return total number of points along ray. */
         unsigned int get_num_ray_pts() const;
-        /** Iterator lower bound for the vector of \f$ s(r_i) \f$ and \f$
-         * mu(r_i) \f$ pairs. */
-        std::vector< std::pair<double, double> >::const_iterator s_mu_vec_begin() const;
-        /** Iterator upper bound for the \f$ s(r_i) \f$ vector. */
-        std::vector< std::pair<double, double> >::const_iterator s_mu_vec_end() const;
+        /** Iterator lower bound for the vector of data points along the
+         * characteristic (the "back" of the ray). */
+        std::vector<CharacteristicData>::const_iterator chardata_vec_begin() const;
+        /** Iterator upper bound for the vector of data points along the
+         * characteristic (the "front" of the ray). */
+        std::vector<CharacteristicData>::const_iterator chardata_vec_end() const;
 
     protected:
-        /** Path length and direction cosine along ray (both functions of \f$ r
-         * \f$). */
-        std::vector< std::pair<double, double> > m_s_mu;
+        /** all the data along the characteristic ray */
+        std::vector<CharacteristicData> m_data;
         /** Pointer to grid variables. */
         GridClass* m_grid;
 
+    /** Lorentz factor. Needed in special relativistic flows. */
     friend double gamma_ltz(double beta);
 };
 
+
 /** Non-core-intersecting characteristic ray. */
-class CharNCI: public Characteristic
+class TangentRay: public Characteristic
 {
     public:
-        /** Initialize a ray tangent to layer \f$ i \f$ at \f$ s=0 \f$. */
-        CharNCI(GridClass& grid, int i);
-        /** Return the impact parameter for this characteristic ray at \f$ s=0 \f$. */
+        /** Initialize a ray tangent to layer \f$ j \f$. For simplicity we
+         * define the geometric coordinate at this point as \f$ s=0 \f$. */
+        TangentRay(GridClass& grid, int i);
+        /** Return the impact parameter for this characteristic ray at \f$ s=0
+         * \f$. This is the same as just the radius of the tangent layer. */
         double get_p() const;
         /** Return index of tangent layer. */
-        unsigned int get_tangent_layer_index() const;
+        unsigned int tangent_layer_index() const;
 
     protected:
-        /** Impact parameter at \f$ s=0 \f$. */
+        /** Impact parameter at \f$ s=0 \f$. This is the same as just the
+         * radius of the tangent layer. */
         double m_p;
         /** Index of tangent layer. */
         unsigned int m_tangent_layer_index;
 };
 
-/** Non-core-intersecting rays on the "front" side of the grid, closer to the
- * observer. */
-class CharNCI_F: public CharNCI
-{
-    public:
-        CharNCI_F(GridClass& grid, int i);
-        /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
-         * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
-        double sign_of_mu() const;
-        /** This is the function called by odeint. */
-        void operator() (const std::vector<double>& x,
-                         std::vector<double>&       dsdr,
-                         const double               r);
-};
-
-/** Non-core-intersecting rays on the "back" side of the grid, farther from the
- * observer. */
-class CharNCI_B: public CharNCI
-{
-    public:
-        CharNCI_B(GridClass& grid, int i);
-        /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
-         * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
-        double sign_of_mu() const;
-        /** This is the function called by odeint. */
-        void operator() (const std::vector<double>& x,
-                         std::vector<double>&       dsdr,
-                         const double               r);
-};
 
 // TODO: What else do core-intersecting rays need?
 /** Core-intersecting characteristic ray. */
-class CharCI: public Characteristic
+class CoreIntersectingRay: public Characteristic
 {
     public:
         /** Initialize a ray emerging from the core at impact parameter \f$ p \f$. Can't user
          * layer indices anymore because we're below the first layer by definition. */
-        CharCI(GridClass& grid, double p);
-};
-
-/** Core-intersecting rays on the "front" side of the grid, closer to the
- * observer. */
-class CharCI_F: public CharCI
-{
-    public:
-        CharCI_F(GridClass& grid, double p);
-        /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
-         * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
-        double sign_of_mu() const;
-        /** This is the function called by odeint. */
-        void operator() (const std::vector<double>& x,
-                         std::vector<double>&       dsdr,
-                         const double               r);
-};
-
-/** Core-intersecting rays on the "back" side of the grid, farther from the
- * observer. */
-class CharCI_B: public CharCI
-{
-    public:
-        CharCI_B(GridClass& grid, double p);
-        /** Forward and backward rays are distinguished by the sign of \f$ mu(r)
-         * \f$ (see Eqs. 14-15 of Hauschildt (1992)). */
-        double sign_of_mu() const;
-        /** This is the function called by odeint. */
-        void operator() (const std::vector<double>& x,
-                         std::vector<double>&       dsdr,
-                         const double               r);
+        CoreIntersectingRay(GridClass& grid, double p);
 };
 
 #endif

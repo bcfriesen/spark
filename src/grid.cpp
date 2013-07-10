@@ -41,7 +41,8 @@ GridClass::GridClass(string layer_file)
      * of values, so we have to reverse them here. */
     // TODO: add flags for other hydro models which may NOT have reversed
     // layers
-    reverse(rad_vel.begin(), rad_vel.end());
+    rad_vel_reversed = rad_vel;
+    reverse(rad_vel_reversed.begin(), rad_vel_reversed.end());
 
     infile.close();
 }
@@ -68,7 +69,7 @@ double GridClass::vel(unsigned int layer) const
 
 double GridClass::vel(double rad) const
 {
-    return interpolate(rad_vel, rad);
+    return interpolate(rad_vel_reversed, rad);
 }
 
 double GridClass::beta(unsigned int layer) const
